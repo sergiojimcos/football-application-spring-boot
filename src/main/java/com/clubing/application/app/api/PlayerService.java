@@ -12,6 +12,8 @@ public interface PlayerService {
     public PlayerEntry addPlayerEntry(long clubId, String name, String surname, String nationality, String email,
                                  Date birthDate) throws Exception;
 
+    public void deletePlayerEntry(long clubId, long playerId) throws Exception;
+
     public PlayerEntry getPlayerEntry(long playerId) throws Exception;
 
     public Collection<PlayerEntry> getPlayerEntriesByClubId(long clubId) throws Exception;
@@ -19,4 +21,6 @@ public interface PlayerService {
     public PlayerEntry getPlayerEntryByClubIdAndPlayerId(long clubId, long playerId) throws Exception;
 
     public int getPlayerEntriesByClubIdCount(long clubId) throws Exception;
+
+
 }

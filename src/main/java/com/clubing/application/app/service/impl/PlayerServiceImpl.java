@@ -31,6 +31,15 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    public void deletePlayerEntry(long clubId, long playerId) throws Exception {
+        PlayerEntry playerEntry = _getPlayerEntriesByClubId(clubId).stream()
+                .filter(player -> playerId == player.getId()).
+                findFirst().orElse(null);
+
+        _playerMap.remove(playerEntry.getId());
+    }
+
+    @Override
     public PlayerEntry getPlayerEntry(long playerId) throws Exception {
        return _playerMap.get(playerId);
     }
