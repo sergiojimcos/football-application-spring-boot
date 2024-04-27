@@ -1,58 +1,138 @@
 package com.clubing.application.app.rest;
 
 
+import com.clubing.application.app.api.ClubService;
+import com.clubing.application.app.api.PlayerService;
 import com.clubing.application.app.rest.api.dto.ClubDTO;
 import com.clubing.application.app.rest.api.dto.PlayerDTO;
-import org.springframework.http.HttpStatus;
+import com.clubing.application.app.service.model.ClubEntry;
+import com.clubing.application.app.service.model.PlayerEntry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/club")
 public class ClubController {
 
+    @Autowired
+    private ClubService clubService;
+
+    @Autowired
+    private PlayerService playerService;
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClubDTO> postClub(@RequestBody ClubDTO clubDTO) {
+    public ResponseEntity<ClubDTO> postClub(@RequestBody @Valid ClubDTO clubDTO) throws Exception {
 
-        return null;
+        return ResponseEntity.ok(_toClubDTO(clubService.addClubEntry(clubDTO.getUserName(), clubDTO.getFederation(),
+                clubDTO.getOfficialName(), clubDTO.getPassword(), clubDTO.getPopularName(),
+                clubDTO.isPublic())));
     }
 
-    @PostMapping(value = "/{clubId}/player", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> postClubWithPlayer(@PathVariable Long clubId, @RequestBody PlayerDTO playerDTO) {
+    @PostMapping(value = "/{clubId}/player", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PlayerDTO> postPlayerBydClubId(@PathVariable @NotNull Long clubId, @RequestBody PlayerDTO playerDTO) throws Exception {
 
-        return null;
+        return ResponseEntity.ok(_toPlayerDTO(playerService.addPlayerEntry(clubId, playerDTO.getGivenName(), playerDTO.getFamilyName(),
+                playerDTO.getNationality(), playerDTO.getEmail(), playerDTO.getDateOfBirth())));
     }
 
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ClubDTO>> getClubs() {
-        return null;
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<ClubDTO>> getClubs() throws Exception {
+
+        Collection<ClubEntry> clubEntryCollection = clubService.getClubs();
+
+        Collection<ClubDTO> clubDTOCollection = clubEntryCollection.stream()
+                .filter(ClubEntry::isPublic)
+                .map(clubEntry -> _toClubDTO(
+                        clubEntry.getId(),
+                        clubEntry.getFullName(),
+                        clubEntry.getSortName(),
+                        clubEntry.getFederationName(),
+                        clubEntry.isPublic()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(clubDTOCollection);
     }
 
-    @GetMapping(value ="/{clubId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getClubById(@PathVariable Long clubId) {
-        return null;
+    @GetMapping(value ="/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClubDTO> getClubById(@PathVariable Long clubId) throws Exception {
+
+        ClubDTO clubDTO = _toClubDTO(clubService.getClubEntry(clubId));
+        clubDTO.setTotalPlayers(playerService.getPlayerEntriesByClubIdCount(clubId));
+
+        return ResponseEntity.ok(clubDTO);
     }
 
-    @GetMapping(value = "/{clubId}/player", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PlayerDTO>> getAllPlayersByClubId(@PathVariable Long clubId) {
+    @GetMapping(value = "/{clubId}/player", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<PlayerDTO>> getAllPlayersByClubId(@PathVariable Long clubId) throws Exception {
 
-        return null;
+        Collection<PlayerEntry> playerEntriesByClubId = playerService.getPlayerEntriesByClubId(clubId);
+
+        Collection<PlayerDTO> playerDTOCollection = playerEntriesByClubId.stream()
+                .map(playerEntry -> _toPlayerDTO(
+                        playerEntry.getId(),
+                        playerEntry.getName(),
+                        playerEntry.getSurname()
+                ))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(playerDTOCollection);
+
     }
 
-    @GetMapping(value = "/{clubId}/player/{playerId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> getPlayerById(@PathVariable Long clubId, @PathVariable Long playerId) {
+    @GetMapping(value = "/{clubId}/player/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PlayerDTO> getPlayerByPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
 
+        clubService.getClubEntry(clubId);
 
-        return null;
+        return ResponseEntity.ok(_toPlayerDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId, playerId)));
     }
 
+    private ClubDTO _toClubDTO(long clubId, String officialName, String popularName, String federation, boolean isPublic) {
+        return new ClubDTO(){{
+            setClubId(clubId);
+            setOfficialName(officialName);
+            setPopularName(popularName);
+            setFederation(federation);
+            setPublic(isPublic);
+        }};
+    }
 
+    private ClubDTO _toClubDTO(ClubEntry clubEntry) {
+        return new ClubDTO(){{
+            setClubId(clubEntry.getId());
+            setUserName(clubEntry.getEmail());
+            setPassword(clubEntry.getPassword());
+            setOfficialName(clubEntry.getFullName());
+            setPopularName(clubEntry.getSortName());
+            setFederation(clubEntry.getFederationName());
+            setPublic(clubEntry.isPublic());
+        }};
+    }
 
+    private PlayerDTO _toPlayerDTO(PlayerEntry playerEntry) {
+        return new PlayerDTO(){{
+            setPlayerId(playerEntry.getId());
+            setEmail(playerEntry.getEmail());
+            setGivenName(playerEntry.getName());
+            setFamilyName(playerEntry.getSurname());
+            setNationality(playerEntry.getNationality());
+            setDateOfBirth(playerEntry.getDateOfBirth());
+        }};
+    }
 
-
-
+    private PlayerDTO _toPlayerDTO(long playerId, String playerName, String playerFamilyName) {
+        return new PlayerDTO(){{
+            setPlayerId(playerId);
+            setGivenName(playerName);
+            setFamilyName(playerFamilyName);
+        }};
+    }
 }
