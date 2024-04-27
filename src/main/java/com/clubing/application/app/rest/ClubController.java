@@ -61,13 +61,21 @@ public class ClubController {
         return ResponseEntity.ok(clubDTOCollection);
     }
 
-    @GetMapping(value ="/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClubDTO> getClubById(@PathVariable Long clubId) throws Exception {
 
         ClubDTO clubDTO = _toClubDTO(clubService.getClubEntry(clubId));
         clubDTO.setTotalPlayers(playerService.getPlayerEntriesByClubIdCount(clubId));
 
         return ResponseEntity.ok(clubDTO);
+    }
+
+    @PutMapping(value = "/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClubDTO> putClubById(@PathVariable Long clubId, @RequestBody ClubDTO clubDTO) throws Exception {
+
+        return ResponseEntity.ok(_toClubDTO(clubService.updateClubEntry(clubId, clubDTO.getUserName(),
+                clubDTO.getFederation(), clubDTO.getOfficialName(), clubDTO.getPassword(), clubDTO.getPopularName(),
+                clubDTO.isPublic())));
     }
 
     @GetMapping(value = "/{clubId}/player", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -105,8 +113,21 @@ public class ClubController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping(value = "/{clubId}/player/{playerId}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PlayerDTO> putPlayerByClubIdAndPlayerId(@PathVariable Long clubId, @PathVariable
+    Long playerId, @RequestBody PlayerDTO playerDTO) throws Exception {
+
+        clubService.getClubEntry(clubId);
+
+        return ResponseEntity.ok(_toPlayerDTO(playerService.updatePlayerEntry(playerId, playerDTO.getGivenName(),
+                playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
+                playerDTO.getDateOfBirth(), clubId)));
+
+    }
+
     private ClubDTO _toClubDTO(long clubId, String officialName, String popularName, String federation, boolean isPublic) {
-        return new ClubDTO(){{
+        return new ClubDTO() {{
             setClubId(clubId);
             setOfficialName(officialName);
             setPopularName(popularName);
@@ -116,7 +137,7 @@ public class ClubController {
     }
 
     private ClubDTO _toClubDTO(ClubEntry clubEntry) {
-        return new ClubDTO(){{
+        return new ClubDTO() {{
             setClubId(clubEntry.getId());
             setUserName(clubEntry.getEmail());
             setPassword(clubEntry.getPassword());
@@ -128,7 +149,7 @@ public class ClubController {
     }
 
     private PlayerDTO _toPlayerDTO(PlayerEntry playerEntry) {
-        return new PlayerDTO(){{
+        return new PlayerDTO() {{
             setPlayerId(playerEntry.getId());
             setEmail(playerEntry.getEmail());
             setGivenName(playerEntry.getName());
@@ -139,7 +160,7 @@ public class ClubController {
     }
 
     private PlayerDTO _toPlayerDTO(long playerId, String playerName, String playerFamilyName) {
-        return new PlayerDTO(){{
+        return new PlayerDTO() {{
             setPlayerId(playerId);
             setGivenName(playerName);
             setFamilyName(playerFamilyName);
