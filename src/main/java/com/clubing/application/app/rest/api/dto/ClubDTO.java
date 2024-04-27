@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class ClubDTO implements Serializable{
 
+    private long clubId;
     private String userName;
     private String password;
     private String officialName;
@@ -14,13 +15,18 @@ public class ClubDTO implements Serializable{
     public ClubDTO() {
     }
 
-    public ClubDTO(String userName, String password, String officialName, String popularName, String federation, boolean isPublic) {
+    public ClubDTO(long clubId, String userName, String password, String officialName, String popularName, String federation, boolean isPublic) {
+        this.clubId = clubId;
         this.userName = userName;
         this.password = password;
         this.officialName = officialName;
         this.popularName = popularName;
         this.federation = federation;
         this.isPublic = isPublic;
+    }
+
+    public long getClubId() {
+        return clubId;
     }
 
     public String getUserName() {
@@ -74,6 +80,7 @@ public class ClubDTO implements Serializable{
     @Override
     public String toString() {
         return "ClubDTO{" +
+                "clubId='" + clubId + '\'' +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", officialName='" + officialName + '\'' +

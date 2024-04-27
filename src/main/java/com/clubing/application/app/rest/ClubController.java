@@ -1,6 +1,8 @@
 package com.clubing.application.app.rest;
 
 
+import com.clubing.application.app.rest.api.dto.ClubDTO;
+import com.clubing.application.app.rest.api.dto.PlayerDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,36 +14,32 @@ import java.util.List;
 @RequestMapping("/club")
 public class ClubController {
 
-    private List clubs = new ArrayList();
-
     @PostMapping
-    public ResponseEntity<String> postClub(@RequestBody String club) {
-        clubs.add(club);
-        return new ResponseEntity<>("Club creado exitosamente", HttpStatus.CREATED);
+    public ResponseEntity<ClubDTO> postClub(@RequestBody ClubDTO clubDTO) {
+
+        return null;
     }
 
     @PostMapping("/{clubId}/player")
-    public ResponseEntity<String> postClubWithPlayer(@PathVariable Long clubId, @RequestBody String player) {
+    public ResponseEntity<String> postClubWithPlayer(@PathVariable Long clubId, @RequestBody PlayerDTO playerDTO) {
 
-        return new ResponseEntity<>("Player created", HttpStatus.CREATED);
+        return null;
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> getClubs() {
-        return new ResponseEntity<>(clubs, HttpStatus.OK);
+    public ResponseEntity<List<ClubDTO>> getClubs() {
+        return null;
     }
 
     @GetMapping("/{clubId}")
-    public ResponseEntity<String> getClub(@PathVariable Long clubId) {
+    public ResponseEntity<String> getClubById(@PathVariable Long clubId) {
         return null;
     }
 
     @GetMapping("/{clubId}/player")
-    public ResponseEntity<List<String>> getAllPlayersByClubId(@PathVariable Long clubId) {
+    public ResponseEntity<List<PlayerDTO>> getAllPlayersByClubId(@PathVariable Long clubId) {
 
-        List<String> players = new ArrayList<>();
-
-        return new ResponseEntity<>(players, HttpStatus.OK);
+        return null;
     }
 
     @GetMapping("/{clubId}/player/{playerId}")
