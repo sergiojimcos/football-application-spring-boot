@@ -21,7 +21,17 @@ public class ClubDTO implements Serializable{
     private String federation;
     private boolean isPublic;
 
+    private int totalPlayers;
+
     public ClubDTO() {
+    }
+
+    public int getTotalPlayers() {
+        return totalPlayers;
+    }
+
+    public void setTotalPlayers(int totalPlayers) {
+        this.totalPlayers = totalPlayers;
     }
 
     public ClubDTO(long clubId, String userName, String password, String officialName, String popularName, String federation, boolean isPublic) {
