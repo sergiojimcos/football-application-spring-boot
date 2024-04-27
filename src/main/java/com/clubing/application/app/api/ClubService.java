@@ -1,5 +1,7 @@
 package com.clubing.application.app.api;
 
+import java.util.List;
+
 /**
  * @author Sergio Jiménez del Coso
  */
@@ -11,6 +13,8 @@ public interface ClubService {
     public void deleteClubEntry(long clubId) throws Exception;
 
     public Object fetchClubEntry(long clubId);
+
+    public List<Object> getClubs() throws Exception;
 
     public Object getClubEntry(long clubId) throws Exception;
 
