@@ -88,11 +88,19 @@ public class ClubController {
     }
 
     @GetMapping(value = "/{clubId}/player/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PlayerDTO> getPlayerByPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
+    public ResponseEntity<PlayerDTO> getPlayerByClubIdAndPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
 
         clubService.getClubEntry(clubId);
 
         return ResponseEntity.ok(_toPlayerDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId, playerId)));
+    }
+
+    @DeleteMapping(value = "/{clubId}/player/{playerId}")
+    public ResponseEntity<?> deletePlayerByClubIdnAndPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
+
+        clubService.getClubEntry(clubId);
+
+        return ResponseEntity.noContent().build();
     }
 
     private ClubDTO _toClubDTO(long clubId, String officialName, String popularName, String federation, boolean isPublic) {
