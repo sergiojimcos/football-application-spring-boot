@@ -2,13 +2,22 @@ package com.clubing.application.app.rest.api.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
 public class ClubDTO implements Serializable{
 
     private long clubId;
+
+    @Email(message = "Invalid email format")
     private String userName;
+
+    @Size(min = 8)
     private String password;
     private String officialName;
     private String popularName;
+
+    @Size(max = 8)
     private String federation;
     private boolean isPublic;
 
