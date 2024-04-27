@@ -65,6 +65,11 @@ public class PlayerServiceImpl implements PlayerService {
         return playerEntries.size();
     }
 
+    @Override
+    public PlayerEntry updatePlayerEntry(long playerId, String name, String surname, String nationality, String email, Date birthDate, long clubId) throws Exception {
+        return _playerMap.put(playerId,new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubId));
+    }
+
     private Collection<PlayerEntry> _getPlayerEntriesByClubId(long clubId) throws Exception {
 
         Collection<PlayerEntry> playerEntries = _playerMap.values();

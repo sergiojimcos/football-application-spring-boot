@@ -22,5 +22,7 @@ public interface PlayerService {
 
     public int getPlayerEntriesByClubIdCount(long clubId) throws Exception;
 
+    public PlayerEntry updatePlayerEntry(long playerId, String name, String surname, String nationality, String email,
+                                         Date birthDate, long clubId) throws Exception;
 
 }
