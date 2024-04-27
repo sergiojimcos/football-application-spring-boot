@@ -20,4 +20,6 @@ public interface ClubService {
 
     public ClubEntry getClubEntry(long clubId) throws Exception;
 
+    public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
+                                     String popularName, boolean isPublic) throws Exception;
 }

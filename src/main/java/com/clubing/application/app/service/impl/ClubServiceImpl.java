@@ -47,4 +47,13 @@ public class ClubServiceImpl implements ClubService {
     public ClubEntry getClubEntry(long clubId) throws Exception {
         return _clubMap.get(clubId);
     }
+
+    @Override
+    public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
+                                     String popularName, boolean isPublic) throws Exception {
+
+        return _clubMap.put(clubId, new ClubEntry(clubId, email, password, officialName, popularName, federation,
+                isPublic));
+
+    }
 }
