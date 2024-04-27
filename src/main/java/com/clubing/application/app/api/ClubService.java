@@ -1,21 +1,23 @@
 package com.clubing.application.app.api;
 
-import java.util.List;
+import com.clubing.application.app.service.model.ClubEntry;
+
+import java.util.Collection;
 
 /**
  * @author Sergio Jiménez del Coso
  */
 public interface ClubService {
 
-    public Object addClubEntry(String email, String federation, String officialName, String password,
-                               String popularName, boolean isPublic) throws Exception;
+    public ClubEntry addClubEntry(String email, String federation, String officialName, String password,
+                                  String popularName, boolean isPublic) throws Exception;
 
     public void deleteClubEntry(long clubId) throws Exception;
 
-    public Object fetchClubEntry(long clubId);
+    public ClubEntry fetchClubEntry(long clubId);
 
-    public List<Object> getClubs() throws Exception;
+    public Collection<ClubEntry> getClubs() throws Exception;
 
-    public Object getClubEntry(long clubId) throws Exception;
+    public ClubEntry getClubEntry(long clubId) throws Exception;
 
 }

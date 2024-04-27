@@ -15,5 +15,5 @@ public interface PlayerService {
     public PlayerEntry getPlayerEntry(long playerId) throws Exception;
 
     public Collection<PlayerEntry> getPlayerEntriesByClubId(long clubId) throws Exception;
-    
+
 }
