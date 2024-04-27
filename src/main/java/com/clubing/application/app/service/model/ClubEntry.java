@@ -11,14 +11,16 @@ public class ClubEntry {
     private String password;
     private String fullName;
     private String sortName;
+    private String federationName;
     private boolean isPublic;
 
-    public ClubEntry(long id, String email, String password, String fullName, String sortName, boolean isPublic) {
+    public ClubEntry(long id, String email, String password, String fullName, String sortName, String federationName, boolean isPublic) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.sortName = sortName;
+        this.federationName = federationName;
         this.isPublic = isPublic;
     }
 
@@ -68,5 +70,13 @@ public class ClubEntry {
 
     public boolean isPublic() {
         return isPublic;
+    }
+
+    public String getFederationName() {
+        return federationName;
+    }
+
+    public void setFederationName(String federationName) {
+        this.federationName = federationName;
     }
 }

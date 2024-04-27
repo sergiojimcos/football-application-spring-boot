@@ -34,6 +34,10 @@ public class ClubDTO implements Serializable{
         this.isPublic = isPublic;
     }
 
+    public void setClubId(long clubId) {
+        this.clubId = clubId;
+    }
+
     public long getClubId() {
         return clubId;
     }
