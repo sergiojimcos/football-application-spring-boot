@@ -96,9 +96,11 @@ public class ClubController {
     }
 
     @DeleteMapping(value = "/{clubId}/player/{playerId}")
-    public ResponseEntity<?> deletePlayerByClubIdnAndPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
+    public ResponseEntity<?> deletePlayerByClubIdAndPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
 
         clubService.getClubEntry(clubId);
+
+        playerService.deletePlayerEntry(clubId, playerId);
 
         return ResponseEntity.noContent().build();
     }
