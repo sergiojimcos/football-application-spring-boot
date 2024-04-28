@@ -1,6 +1,7 @@
 package com.clubing.application.app.auth.impl.manager;
 
 import com.clubing.application.app.auth.api.manager.TokenManager;
+import com.clubing.application.app.rest.exception.UnauthorizedException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,6 +20,11 @@ public class TokenManagerImpl implements TokenManager {
     public String loginUser(String username, String password) {
 
         String token = UUID.randomUUID().toString();
+
+        if (!_isValidPassword(password)) {
+            throw new UnauthorizedException("Invalid credentials");
+        }
+
         userTokens.put(token, username);
         return token;
     }
@@ -26,5 +32,9 @@ public class TokenManagerImpl implements TokenManager {
     @Override
     public boolean isUserLoggedIn(String token) {
         return userTokens.containsKey(token);
+    }
+
+    private boolean _isValidPassword(String password) {
+        return !(password.length() <= 8 || !password.contains("_"));
     }
 }
