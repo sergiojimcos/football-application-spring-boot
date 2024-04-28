@@ -1,4 +1,4 @@
-package com.clubing.application.app.rest;
+package com.clubing.application.app.rest.controller;
 
 import com.clubing.application.app.api.ClubService;
 import com.clubing.application.app.api.PlayerService;
