@@ -9,12 +9,14 @@ import com.clubing.application.app.rest.converter.util.PlayerDTOConverterUtil;
 import com.clubing.application.app.service.model.ClubEntry;
 import com.clubing.application.app.service.model.PlayerEntry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.nio.file.AccessDeniedException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -134,5 +136,10 @@ public class ClubController {
                 playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
                 playerDTO.getDateOfBirth(), clubId)));
 
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<String> handlePermissionException(AccessDeniedException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 }
