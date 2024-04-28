@@ -27,7 +27,7 @@ public class ClubController {
     @Autowired
     private PlayerService playerService;
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClubDTO> postClub(@RequestBody @Valid ClubDTO clubDTO) throws Exception {
 
         return ResponseEntity.ok(_toClubDTO(clubService.addClubEntry(clubDTO.getUserName(), clubDTO.getFederation(),
@@ -35,11 +35,14 @@ public class ClubController {
                 clubDTO.isPublic())));
     }
 
-    @PostMapping(value = "/{clubId}/player", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PlayerDTO> postPlayerBydClubId(@PathVariable @NotNull Long clubId, @RequestBody PlayerDTO playerDTO) throws Exception {
+    @PostMapping(value = "/{clubId}/player", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PlayerDTO> postPlayerBydClubId(@PathVariable @NotNull Long clubId,
+                                                         @RequestBody @Valid PlayerDTO playerDTO) throws Exception {
 
-        return ResponseEntity.ok(_toPlayerDTO(playerService.addPlayerEntry(clubId, playerDTO.getGivenName(), playerDTO.getFamilyName(),
-                playerDTO.getNationality(), playerDTO.getEmail(), playerDTO.getDateOfBirth())));
+        return ResponseEntity.ok(_toPlayerDTO(playerService.addPlayerEntry(clubId, playerDTO.getGivenName(),
+                playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
+                playerDTO.getDateOfBirth())));
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,7 +65,7 @@ public class ClubController {
     }
 
     @GetMapping(value = "/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClubDTO> getClubById(@PathVariable Long clubId) throws Exception {
+    public ResponseEntity<ClubDTO> getClubById(@PathVariable @NotNull Long clubId) throws Exception {
 
         ClubDTO clubDTO = _toClubDTO(clubService.getClubEntry(clubId));
         clubDTO.setTotalPlayers(playerService.getPlayerEntriesByClubIdCount(clubId));
@@ -70,8 +73,10 @@ public class ClubController {
         return ResponseEntity.ok(clubDTO);
     }
 
-    @PutMapping(value = "/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClubDTO> putClubById(@PathVariable Long clubId, @RequestBody ClubDTO clubDTO) throws Exception {
+    @PutMapping(value = "/{clubId}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClubDTO> putClubById(@PathVariable @NotNull Long clubId,
+                                               @RequestBody @NotNull ClubDTO clubDTO) throws Exception {
 
         return ResponseEntity.ok(_toClubDTO(clubService.updateClubEntry(clubId, clubDTO.getUserName(),
                 clubDTO.getFederation(), clubDTO.getOfficialName(), clubDTO.getPassword(), clubDTO.getPopularName(),
@@ -79,7 +84,7 @@ public class ClubController {
     }
 
     @GetMapping(value = "/{clubId}/player", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<PlayerDTO>> getAllPlayersByClubId(@PathVariable Long clubId) throws Exception {
+    public ResponseEntity<Collection<PlayerDTO>> getAllPlayersByClubId(@PathVariable @NotNull Long clubId) throws Exception {
 
         Collection<PlayerEntry> playerEntriesByClubId = playerService.getPlayerEntriesByClubId(clubId);
 
@@ -95,16 +100,19 @@ public class ClubController {
 
     }
 
-    @GetMapping(value = "/{clubId}/player/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PlayerDTO> getPlayerByClubIdAndPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
+    @GetMapping(value = "/{clubId}/player/{playerId}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PlayerDTO> getPlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
+                                                                  @PathVariable @NotNull Long playerId) throws Exception {
 
         clubService.getClubEntry(clubId);
 
         return ResponseEntity.ok(_toPlayerDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId, playerId)));
     }
 
-    @DeleteMapping(value = "/{clubId}/player/{playerId}")
-    public ResponseEntity<?> deletePlayerByClubIdAndPlayerId(@PathVariable Long clubId, @PathVariable Long playerId) throws Exception {
+    @DeleteMapping(value = "/{clubId}/player/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deletePlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
+                                                             @PathVariable @NotNull Long playerId) throws Exception {
 
         clubService.getClubEntry(clubId);
 
@@ -115,8 +123,9 @@ public class ClubController {
 
     @PutMapping(value = "/{clubId}/player/{playerId}", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PlayerDTO> putPlayerByClubIdAndPlayerId(@PathVariable Long clubId, @PathVariable
-    Long playerId, @RequestBody PlayerDTO playerDTO) throws Exception {
+    public ResponseEntity<PlayerDTO> putPlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
+                                                                  @PathVariable @NotNull Long playerId,
+                                                                  @RequestBody @Valid PlayerDTO playerDTO) throws Exception {
 
         clubService.getClubEntry(clubId);
 
