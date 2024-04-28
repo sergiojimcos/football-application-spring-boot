@@ -27,7 +27,7 @@ public class AuthController {
     public ResponseEntity<TokenDTO> login(@RequestBody @Valid UserDTO userDTO) throws Exception {
         String token = tokenManager.loginUser(userDTO.getUserName(), userDTO.getPassword());
 
-        return new ResponseEntity<>(TokenDTOConverterUtil.toDTO(token), HttpStatus.OK);
+        return ResponseEntity.ok(TokenDTOConverterUtil.toDTO(token));
 
     }
 }
