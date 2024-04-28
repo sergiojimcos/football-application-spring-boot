@@ -22,4 +22,9 @@ public class TokenManagerImpl implements TokenManager {
         userTokens.put(token, username);
         return token;
     }
+
+    @Override
+    public boolean isUserLoggedIn(String token) {
+        return userTokens.containsKey(token);
+    }
 }
