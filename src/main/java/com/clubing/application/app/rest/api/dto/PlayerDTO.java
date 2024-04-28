@@ -26,6 +26,15 @@ public class PlayerDTO implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
+
+    public PlayerDTO(String givenName, String familyName, String nationality, String email, Date dateOfBirth) {
+        this.givenName = givenName;
+        this.familyName = familyName;
+        this.nationality = nationality;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public long getPlayerId() {
         return playerId;
     }
