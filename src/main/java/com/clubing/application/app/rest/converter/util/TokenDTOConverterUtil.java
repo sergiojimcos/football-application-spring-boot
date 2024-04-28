@@ -1,0 +1,14 @@
+package com.clubing.application.app.rest.converter.util;
+
+import com.clubing.application.app.rest.api.dto.TokenDTO;
+
+/**
+ * @author Sergio Jiménez del Coso
+ */
+
+public class TokenDTOConverterUtil {
+
+    public static TokenDTO toDTO(String token) {
+        return new TokenDTO(token);
+    }
+}
