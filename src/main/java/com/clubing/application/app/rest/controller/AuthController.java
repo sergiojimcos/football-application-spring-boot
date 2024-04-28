@@ -23,9 +23,7 @@ public class AuthController {
     @PostMapping()
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) throws Exception {
 
-        boolean credentialsValid = _validateCredentials(username, password);
-
-        if (credentialsValid) {
+        if (_isValidPassword(password)) {
             String token = tokenManager.loginUser(username, password);
             return new ResponseEntity<>(token, HttpStatus.OK);
         } else {
@@ -33,7 +31,7 @@ public class AuthController {
         }
     }
 
-    private boolean _validateCredentials(String username, String password) {
-        return username.equals(password);
+    private boolean _isValidPassword(String password) {
+        return !(password.length() <= 8 || !password.contains("_"));
     }
 }
