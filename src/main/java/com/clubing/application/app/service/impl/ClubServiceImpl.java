@@ -22,7 +22,9 @@ public class ClubServiceImpl implements ClubService {
 
         ClubEntry clubEntry = new ClubEntry(new Random().nextLong(), email, password, officialName, popularName, federation, isPublic);
 
-        return _clubMap.put(clubEntry.getId(), clubEntry);
+        _clubMap.put(clubEntry.getId(), clubEntry);
+
+        return _clubMap.get(clubEntry.getId());
 
     }
 
@@ -52,8 +54,10 @@ public class ClubServiceImpl implements ClubService {
     public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
                                      String popularName, boolean isPublic) throws Exception {
 
-        return _clubMap.put(clubId, new ClubEntry(clubId, email, password, officialName, popularName, federation,
+        _clubMap.put(clubId, new ClubEntry(clubId, email, password, officialName, popularName, federation,
                 isPublic));
+
+        return _clubMap.get(clubId);
 
     }
 }

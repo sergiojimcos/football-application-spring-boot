@@ -27,7 +27,9 @@ public class PlayerServiceImpl implements PlayerService {
     public PlayerEntry addPlayerEntry(long clubId, String name, String surname, String nationality, String email, Date birthDate) throws Exception {
         PlayerEntry playerEntry = new PlayerEntry(new Random().nextLong(), name, surname, nationality, email, birthDate, clubId);
 
-        return _playerMap.put(playerEntry.getId(), playerEntry);
+        _playerMap.put(playerEntry.getId(), playerEntry);
+
+        return _playerMap.get(playerEntry.getId());
     }
 
     @Override
@@ -67,7 +69,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerEntry updatePlayerEntry(long playerId, String name, String surname, String nationality, String email, Date birthDate, long clubId) throws Exception {
-        return _playerMap.put(playerId,new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubId));
+        _playerMap.put(playerId,new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubId));
+
+        return _playerMap.get(playerId);
     }
 
     private Collection<PlayerEntry> _getPlayerEntriesByClubId(long clubId) throws Exception {
