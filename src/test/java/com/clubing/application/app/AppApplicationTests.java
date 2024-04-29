@@ -52,7 +52,7 @@ public class AppApplicationTests {
 
 	@Test
 	public void testCreateValidClub() throws Exception {
-		ClubDTO clubDTO = new ClubDTO("email@email.com", "password", "official", "popularName", "federation", true);
+		ClubDTO clubDTO = new ClubDTO( RandomStringUtils.random(4) + "@email.com","password", "official", "popularName", "federation", true);
 
 		HttpHeaders headers = new HttpHeaders();
 
@@ -67,7 +67,7 @@ public class AppApplicationTests {
 
 	@Test
 	public void testGetClubById() throws Exception {
-		ClubDTO clubDTO = _postClub(new ClubDTO("email@email.com", "password",
+		ClubDTO clubDTO = _postClub(new ClubDTO(RandomStringUtils.random(4) + "@email.com", "password",
 				"official", "popularName", "federation", true));
 
 		HttpHeaders headers = new HttpHeaders();
