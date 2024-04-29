@@ -1,12 +1,13 @@
 package com.clubing.application.app.service.impl;
 
 import com.clubing.application.app.api.ClubService;
+import com.clubing.application.app.rest.exception.NotFoundException;
 import com.clubing.application.app.service.model.ClubEntry;
+import com.clubing.application.app.service.repository.ClubRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Random;
 
 /**
  * @author Sergio Jiménez del Coso
@@ -15,49 +16,49 @@ import java.util.Random;
 @Service
 public class ClubServiceImpl implements ClubService {
 
-    HashMap<Long, ClubEntry> _clubMap = new HashMap<>();
+    @Autowired
+    private ClubRepository clubRepository;
 
     @Override
     public ClubEntry addClubEntry(String email, String federation, String officialName, String password, String popularName, boolean isPublic) throws Exception {
 
-        ClubEntry clubEntry = new ClubEntry(new Random().nextLong(), email, password, officialName, popularName, federation, isPublic);
-
-        _clubMap.put(clubEntry.getId(), clubEntry);
-
-        return _clubMap.get(clubEntry.getId());
+        return clubRepository.save(new ClubEntry(email, password, officialName, popularName, federation, isPublic));
 
     }
 
     @Override
     public void deleteClubEntry(long clubId) throws Exception {
 
-        _clubMap.remove(clubId);
+        clubRepository.deleteById(clubId);
     }
 
     @Override
     public ClubEntry fetchClubEntry(long clubId) {
 
-        return _clubMap.get(clubId);
+        return clubRepository.findById(clubId).orElse(null);
     }
 
     @Override
     public Collection<ClubEntry> getClubs() throws Exception {
-        return _clubMap.values();
+        return clubRepository.findAll();
     }
 
     @Override
     public ClubEntry getClubEntry(long clubId) throws Exception {
-        return _clubMap.get(clubId);
+        return clubRepository.findById(clubId).orElseThrow(() -> new NotFoundException("ClubEntry not found with id: " + clubId));
     }
 
     @Override
     public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
                                      String popularName, boolean isPublic) throws Exception {
 
-        _clubMap.put(clubId, new ClubEntry(clubId, email, password, officialName, popularName, federation,
-                isPublic));
+        ClubEntry updatedClubEntry = clubRepository.updateClubEntryById(clubId, new ClubEntry(email, password,
+                officialName, popularName, federation, isPublic));
 
-        return _clubMap.get(clubId);
+        if (updatedClubEntry == null) {
+            throw new NotFoundException("ClubEntry not found with id: " + clubId);
+        }
+        return updatedClubEntry;
 
     }
 }

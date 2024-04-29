@@ -1,27 +1,46 @@
 package com.clubing.application.app.service.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 
 /**
  * @author Sergio Jiménez del Coso
  */
+
+@Entity
 public class ClubEntry {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+
+    @Column(unique = true)
+    @Email(message = "Invalid email format")
     private String email;
+
+    @Column
+    @Size(min = 8)
     private String password;
     private String fullName;
     private String sortName;
+
+    @Column()
+    @Size(max = 8)
     private String federationName;
     private boolean isPublic;
 
-    public ClubEntry(long id, String email, String password, String fullName, String sortName, String federationName, boolean isPublic) {
-        this.id = id;
+    public ClubEntry(String email, String password, String fullName, String sortName, String federationName, boolean isPublic) {
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.sortName = sortName;
         this.federationName = federationName;
         this.isPublic = isPublic;
+    }
+
+    public ClubEntry() {
     }
 
     public void setId(long id) {
