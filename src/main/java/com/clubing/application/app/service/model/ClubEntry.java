@@ -43,6 +43,16 @@ public class ClubEntry {
     public ClubEntry() {
     }
 
+    public ClubEntry(long clubId, String email, String password, String fullName, String sortName, String federationName, boolean isPublic) {
+        this.id = clubId;
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+        this.sortName = sortName;
+        this.federationName = federationName;
+        this.isPublic = isPublic;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
