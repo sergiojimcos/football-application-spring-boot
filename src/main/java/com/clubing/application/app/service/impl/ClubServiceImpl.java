@@ -40,11 +40,13 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public Collection<ClubEntry> getClubs() throws Exception {
+
         return clubRepository.findAll();
     }
 
     @Override
     public ClubEntry getClubEntry(long clubId) throws Exception {
+
         return clubRepository.findById(clubId).orElseThrow(() -> new NotFoundException("ClubEntry not found with id: " + clubId));
     }
 
@@ -52,13 +54,14 @@ public class ClubServiceImpl implements ClubService {
     public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
                                      String popularName, boolean isPublic) throws Exception {
 
-        ClubEntry updatedClubEntry = clubRepository.updateClubEntryById(clubId, new ClubEntry(email, password,
-                officialName, popularName, federation, isPublic));
+        ClubEntry foundClubEntry = fetchClubEntry(clubId);
 
-        if (updatedClubEntry == null) {
+        if (foundClubEntry == null) {
             throw new NotFoundException("ClubEntry not found with id: " + clubId);
         }
-        return updatedClubEntry;
 
+        return clubRepository.save(new ClubEntry(clubId, email, federation, officialName, popularName, federation,
+                isPublic));
+        
     }
 }
