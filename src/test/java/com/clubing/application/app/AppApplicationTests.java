@@ -4,6 +4,7 @@ import com.clubing.application.app.rest.api.dto.ClubDTO;
 import com.clubing.application.app.rest.api.dto.PlayerDTO;
 import com.clubing.application.app.rest.api.dto.TokenDTO;
 import com.clubing.application.app.rest.api.dto.UserDTO;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +44,7 @@ public class AppApplicationTests {
 		_BASE_POST_PLAYER = "http://localhost:" + this.port + "/club/%s/player";
 
 		ResponseEntity<TokenDTO> tokenEntity = this.testRestTemplate.postForEntity(_BASE_LOGGING_USER,
-				new UserDTO("username", "password123_"), TokenDTO.class);
+				new UserDTO(RandomStringUtils.random(5), "password123_"), TokenDTO.class);
 
 		_token = tokenEntity.getBody().getAccessToken();
 
