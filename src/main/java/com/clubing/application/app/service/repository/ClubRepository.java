@@ -21,6 +21,4 @@ public interface ClubRepository extends JpaRepository<ClubEntry, Long> {
     public Optional<ClubEntry> findById(Long id);
 
     public List<ClubEntry> findAll();
-
-    public ClubEntry updateClubEntryById(long clubId, ClubEntry clubEntry);
 }
