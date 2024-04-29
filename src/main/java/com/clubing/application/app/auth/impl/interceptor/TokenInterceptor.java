@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class TokenInterceptor implements HandlerInterceptor {
 
-
     @Autowired
     private TokenManager tokenManager;
 

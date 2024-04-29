@@ -1,7 +1,10 @@
 package com.clubing.application.app.auth.impl.manager;
 
+import com.clubing.application.app.api.UserService;
 import com.clubing.application.app.auth.api.manager.TokenManager;
 import com.clubing.application.app.rest.exception.UnauthorizedException;
+import com.clubing.application.app.service.model.UserEntry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,8 +19,11 @@ import java.util.UUID;
 public class TokenManagerImpl implements TokenManager {
     private Map<String, String> userTokens = new HashMap<>();
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public String loginUser(String username, String password) {
+    public String loginUser(String username, String password) throws Exception{
 
         String token = UUID.randomUUID().toString();
 
@@ -25,7 +31,9 @@ public class TokenManagerImpl implements TokenManager {
             throw new UnauthorizedException("Invalid credentials");
         }
 
-        userTokens.put(token, username);
+        UserEntry userEntry = userService.addUser(new UserEntry(username, password));
+
+        userTokens.put(token, userEntry.getUsername());
         return token;
     }
 

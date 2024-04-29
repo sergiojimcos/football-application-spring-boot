@@ -5,7 +5,6 @@ import com.clubing.application.app.rest.api.dto.TokenDTO;
 import com.clubing.application.app.rest.api.dto.UserDTO;
 import com.clubing.application.app.rest.converter.util.TokenDTOConverterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
