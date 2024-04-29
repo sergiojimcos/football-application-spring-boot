@@ -1,31 +1,19 @@
 package com.clubing.application.app.rest.api.dto;
 
-import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
 
 public class PlayerDTO implements Serializable {
+
     private long playerId;
     private String givenName;
     private String familyName;
     private String nationality;
-
-    @Email(message = "Invalid email format")
     private String email;
     private Date dateOfBirth;
 
     public PlayerDTO() {
     }
-
-    public PlayerDTO(long playerId, String givenName, String familyName, String nationality, String email, Date dateOfBirth) {
-        this.playerId = playerId;
-        this.givenName = givenName;
-        this.familyName = familyName;
-        this.nationality = nationality;
-        this.email = email;
-        this.dateOfBirth = dateOfBirth;
-    }
-
 
     public PlayerDTO(String givenName, String familyName, String nationality, String email, Date dateOfBirth) {
         this.givenName = givenName;
