@@ -54,11 +54,7 @@ public class ClubServiceImpl implements ClubService {
     public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
                                      String popularName, boolean isPublic) throws Exception {
 
-        ClubEntry foundClubEntry = fetchClubEntry(clubId);
-
-        if (foundClubEntry == null) {
-            throw new NotFoundException("ClubEntry not found with id: " + clubId);
-        }
+        getClubEntry(clubId);
 
         return clubRepository.save(new ClubEntry(clubId, email, federation, officialName, popularName, federation,
                 isPublic));
