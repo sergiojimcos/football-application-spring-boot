@@ -2,9 +2,9 @@ package com.clubing.application.app.service.impl;
 
 import com.clubing.application.app.api.ClubService;
 import com.clubing.application.app.api.PlayerService;
-import com.clubing.application.app.rest.api.dto.PlayerDTO;
-import com.clubing.application.app.service.model.ClubEntry;
+import com.clubing.application.app.rest.exception.NotFoundException;
 import com.clubing.application.app.service.model.PlayerEntry;
+import com.clubing.application.app.service.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +21,13 @@ public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private ClubService clubService;
 
-    HashMap<Long, PlayerEntry> _playerMap = new HashMap<>();
+    @Autowired
+    private PlayerRepository playerRepository;
 
     @Override
     public PlayerEntry addPlayerEntry(long clubId, String name, String surname, String nationality, String email, Date birthDate) throws Exception {
-        PlayerEntry playerEntry = new PlayerEntry(new Random().nextLong(), name, surname, nationality, email, birthDate, clubId);
 
-        _playerMap.put(playerEntry.getId(), playerEntry);
-
-        return _playerMap.get(playerEntry.getId());
+        return playerRepository.save(new PlayerEntry(name, surname, nationality, email, birthDate, clubId));
     }
 
     @Override
@@ -38,12 +36,13 @@ public class PlayerServiceImpl implements PlayerService {
                 .filter(player -> playerId == player.getId()).
                 findFirst().orElse(null);
 
-        _playerMap.remove(playerEntry.getId());
+        playerRepository.deleteById(playerEntry.getId());
     }
 
     @Override
     public PlayerEntry getPlayerEntry(long playerId) throws Exception {
-       return _playerMap.get(playerId);
+        return playerRepository.findById(playerId).orElseThrow(() -> new
+                NotFoundException("PlayerEntry not found with id: " + playerId));
     }
 
     @Override
@@ -69,16 +68,15 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerEntry updatePlayerEntry(long playerId, String name, String surname, String nationality, String email, Date birthDate, long clubId) throws Exception {
-        _playerMap.put(playerId,new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubId));
 
-        return _playerMap.get(playerId);
+        getPlayerEntry(playerId);
+
+        return playerRepository.save(new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubId));
     }
 
     private Collection<PlayerEntry> _getPlayerEntriesByClubId(long clubId) throws Exception {
 
-        Collection<PlayerEntry> playerEntries = _playerMap.values();
-
-        return playerEntries.stream()
+        return playerRepository.findAll().stream()
                 .filter((playerEntry -> playerEntry.getClubId() == clubId))
                 .collect(Collectors.toList());
     }

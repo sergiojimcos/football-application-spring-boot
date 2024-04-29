@@ -1,18 +1,29 @@
 package com.clubing.application.app.service.model;
 
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Date;
 
 /**
  * @author Sergio Jiménez del Coso
  */
+
+@Entity
 public class PlayerEntry {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String surname;
     private String nationality;
+
+    @Email(message = "Invalid email format")
     private String email;
+
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
+
     private long clubId;
 
     public PlayerEntry(long id, String name, String surname, String nationality, String email, Date dateOfBirth, long clubId) {
@@ -23,6 +34,19 @@ public class PlayerEntry {
         this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.clubId = clubId;
+    }
+
+    public PlayerEntry(String name, String surname, String nationality, String email, Date dateOfBirth, long clubId) {
+        this.name = name;
+        this.surname = surname;
+        this.nationality = nationality;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.clubId = clubId;
+    }
+
+    public PlayerEntry() {
+
     }
 
     public void setClubId(long clubId) {
