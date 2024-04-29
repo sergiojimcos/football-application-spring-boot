@@ -62,6 +62,6 @@ public class ClubServiceImpl implements ClubService {
 
         return clubRepository.save(new ClubEntry(clubId, email, federation, officialName, popularName, federation,
                 isPublic));
-        
+
     }
 }
