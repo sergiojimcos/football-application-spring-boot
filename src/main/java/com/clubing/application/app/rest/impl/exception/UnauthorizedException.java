@@ -1,4 +1,4 @@
-package com.clubing.application.app.rest.exception;
+package com.clubing.application.app.rest.impl.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

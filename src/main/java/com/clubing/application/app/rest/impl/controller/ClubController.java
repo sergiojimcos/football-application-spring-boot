@@ -1,11 +1,11 @@
-package com.clubing.application.app.rest.controller;
+package com.clubing.application.app.rest.impl.controller;
 
 import com.clubing.application.app.api.ClubService;
 import com.clubing.application.app.api.PlayerService;
 import com.clubing.application.app.rest.api.dto.ClubDTO;
 import com.clubing.application.app.rest.api.dto.PlayerDTO;
-import com.clubing.application.app.rest.converter.util.ClubDTOConverterUtil;
-import com.clubing.application.app.rest.converter.util.PlayerDTOConverterUtil;
+import com.clubing.application.app.rest.impl.converter.util.ClubDTOConverterUtil;
+import com.clubing.application.app.rest.impl.converter.util.PlayerDTOConverterUtil;
 import com.clubing.application.app.service.model.ClubEntry;
 import com.clubing.application.app.service.model.PlayerEntry;
 import org.springframework.beans.factory.annotation.Autowired;

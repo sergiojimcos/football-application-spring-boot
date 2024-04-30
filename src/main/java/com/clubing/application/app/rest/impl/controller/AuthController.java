@@ -1,9 +1,9 @@
-package com.clubing.application.app.rest.controller;
+package com.clubing.application.app.rest.impl.controller;
 
 import com.clubing.application.app.auth.api.manager.TokenManager;
 import com.clubing.application.app.rest.api.dto.TokenDTO;
 import com.clubing.application.app.rest.api.dto.UserDTO;
-import com.clubing.application.app.rest.converter.util.TokenDTOConverterUtil;
+import com.clubing.application.app.rest.impl.converter.util.TokenDTOConverterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,7 @@ package com.clubing.application.app.auth.impl.manager;
 
 import com.clubing.application.app.api.UserService;
 import com.clubing.application.app.auth.api.manager.TokenManager;
-import com.clubing.application.app.rest.exception.UnauthorizedException;
+import com.clubing.application.app.rest.impl.exception.UnauthorizedException;
 import com.clubing.application.app.service.model.UserEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

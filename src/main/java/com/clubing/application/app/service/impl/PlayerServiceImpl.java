@@ -2,7 +2,7 @@ package com.clubing.application.app.service.impl;
 
 import com.clubing.application.app.api.ClubService;
 import com.clubing.application.app.api.PlayerService;
-import com.clubing.application.app.rest.exception.NotFoundException;
+import com.clubing.application.app.rest.impl.exception.NotFoundException;
 import com.clubing.application.app.service.model.ClubEntry;
 import com.clubing.application.app.service.model.PlayerEntry;
 import com.clubing.application.app.service.repository.PlayerRepository;
