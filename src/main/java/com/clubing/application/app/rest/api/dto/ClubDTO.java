@@ -1,7 +1,10 @@
 package com.clubing.application.app.rest.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClubDTO implements Serializable{
 
     private long clubId;
@@ -11,17 +14,16 @@ public class ClubDTO implements Serializable{
     private String popularName;
     private String federation;
     private boolean isPublic;
-
-    private int totalPlayers;
+    private Integer totalPlayers;
 
     public ClubDTO() {
     }
 
-    public int getTotalPlayers() {
+    public Integer getTotalPlayers() {
         return totalPlayers;
     }
 
-    public void setTotalPlayers(int totalPlayers) {
+    public void setTotalPlayers(Integer totalPlayers) {
         this.totalPlayers = totalPlayers;
     }
 

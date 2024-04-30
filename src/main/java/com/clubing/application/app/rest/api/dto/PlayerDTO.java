@@ -1,8 +1,11 @@
 package com.clubing.application.app.rest.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlayerDTO implements Serializable {
 
     private long playerId;
