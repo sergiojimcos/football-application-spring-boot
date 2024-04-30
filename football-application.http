@@ -3,7 +3,137 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "userName": "userFootball",
+  "userName": "userFootball12",
   "password": "testing_1"
-
 }
+
+### POST public club (Real Madrid)
+POST http://localhost:8080/club
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "userName": "RealMadrid@footbal.com",
+  "password": "RealMAdrid1234",
+  "officialName": "Real Madrid FC",
+  "popularName": "RM",
+  "federation": "La Liga",
+  "public": true
+}
+
+### POST public club (Real Madrid)
+POST http://localhost:8080/club
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "userName": "LasPalmas@footbal.com",
+  "password": "LasPalmas1234",
+  "officialName": "UD Las Palmas",
+  "popularName": "LPA",
+  "federation": "La Liga",
+  "public": true
+}
+
+### POST private club (Valencia)
+POST http://localhost:8080/club
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "userName": "Valencia@footbal.com",
+  "password": "Valencia1234",
+  "officialName": "Valencia FC",
+  "popularName": "VLC",
+  "federation": "La Liga",
+  "public": false
+}
+
+### POST Alfedro Di Stefano in RealMadrid
+POST http://localhost:8080/club/1/player
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "givenName": "Alfredo",
+  "familyName": "Di Stefano",
+  "nationality": "Argentina",
+  "email": "AlfredoDiStefano@realmadrid.com",
+  "dateOfBirth": "1926-07-04"
+}
+
+### POST Alfedro Di Stefano in RealMadrid
+PUT http://localhost:8080/club/1/player/1
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "givenName": "Alfredo",
+  "familyName": "Di Stefano",
+  "nationality": "Argentina",
+  "email": "AlfredoDiStefanoNumber1@realmadrid.com",
+  "dateOfBirth": "1926-07-04"
+}
+
+### POST Iker Casillas in Real Madrid
+POST http://localhost:8080/club/1/player
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "givenName": "Iker",
+  "familyName": "Casillas",
+  "nationality": "España",
+  "email": "IkerCasillas@realmadrid.com",
+  "federation": "La Liga",
+  "dateOfBirth": "1981-05-20"
+}
+
+### POST Santiago Cañizares in Valencia
+POST http://localhost:8080/club/3/player
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "givenName": "Santiago",
+  "familyName": "Cañizares",
+  "nationality": "España",
+  "email": "SantiagoCañizares@valencia.com",
+  "federation": "La Liga",
+  "dateOfBirth": "1969-12-18"
+}
+
+### GET all the information from Real Madrid
+GET http://localhost:8080/club/1
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+### GET information from the Clubs
+GET http://localhost:8080/club/
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+### PUT private club (Valencia)
+PUT http://localhost:8080/club/3
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+{
+  "userName": "Valencia@footbal.com",
+  "password": "Valencia1234",
+  "officialName": "Valencia FC",
+  "popularName": "VLC",
+  "federation": "La Liga EA",
+  "public": false
+}
+
+### GET all the players from a club (Real Madrid)
+GET http://localhost:8080/club/1/player
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
+### DELETE a player from a club (Delete Di Stefano from Real Madrid)
+DELETE http://localhost:8080/club/1/player/1
+Content-Type: application/json
+Authorization: Bearer ecddb065-1aed-4af6-8f3b-40e926a7bbda
+
