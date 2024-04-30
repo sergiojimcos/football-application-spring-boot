@@ -108,16 +108,12 @@ public class ClubController {
     public ResponseEntity<PlayerDTO> getPlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
                                                                   @PathVariable @NotNull Long playerId) throws Exception {
 
-        clubService.getClubEntry(clubId);
-
         return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId, playerId)));
     }
 
     @DeleteMapping(value = "/{clubId}/player/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deletePlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
                                                              @PathVariable @NotNull Long playerId) throws Exception {
-
-        clubService.getClubEntry(clubId);
 
         playerService.deletePlayerEntry(clubId, playerId);
 
@@ -129,8 +125,6 @@ public class ClubController {
     public ResponseEntity<PlayerDTO> putPlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
                                                                   @PathVariable @NotNull Long playerId,
                                                                   @RequestBody @Valid PlayerDTO playerDTO) throws Exception {
-
-        clubService.getClubEntry(clubId);
 
         return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.updatePlayerEntry(playerId, playerDTO.getGivenName(),
                 playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),

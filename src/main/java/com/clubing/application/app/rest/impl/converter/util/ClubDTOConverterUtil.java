@@ -17,6 +17,7 @@ public class ClubDTOConverterUtil {
             setPopularName(popularName);
             setFederation(federation);
             setPublic(isPublic);
+            setTotalPlayers(null);
         }};
     }
 

@@ -56,7 +56,7 @@ public class ClubServiceImpl implements ClubService {
 
         getClubEntry(clubId);
 
-        return clubRepository.save(new ClubEntry(clubId, email, federation, officialName, popularName, federation,
+        return clubRepository.save(new ClubEntry(clubId, email, password, officialName, popularName, federation,
                 isPublic));
 
     }
