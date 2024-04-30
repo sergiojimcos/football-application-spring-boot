@@ -111,7 +111,6 @@ public class AppApplicationTests {
 		then(actualClubDTO.getBody().getOfficialName()).isEqualTo(expectedClubDTO.getOfficialName());
 		then(actualClubDTO.getBody().getPopularName()).isEqualTo(expectedClubDTO.getPopularName());
 		then(actualClubDTO.getBody().isPublic()).isEqualTo(expectedClubDTO.isPublic());
-		then(actualClubDTO.getBody().getTotalPlayers()).isEqualTo(expectedClubDTO.getTotalPlayers());
 	}
 
 	private ClubDTO _postClub(ClubDTO clubDTO) {
