@@ -37,8 +37,8 @@ public class ClubController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClubDTO> postClub(@RequestBody @Valid ClubDTO clubDTO) throws Exception {
 
-        return ResponseEntity.ok(ClubDTOConverterUtil.toDTO(clubService.addClubEntry(clubDTO.getUserName(), clubDTO.getPassword(),
-                clubDTO.getOfficialName(), clubDTO.getPopularName(), clubDTO.getFederation(),
+        return ResponseEntity.ok(ClubDTOConverterUtil.toDTO(clubService.addClubEntry(clubDTO.getUserName(),
+                clubDTO.getPassword(), clubDTO.getOfficialName(), clubDTO.getPopularName(), clubDTO.getFederation(),
                 clubDTO.isPublic())));
     }
 
@@ -47,8 +47,8 @@ public class ClubController {
     public ResponseEntity<PlayerDTO> postPlayerBydClubId(@PathVariable @NotNull Long clubId,
                                                          @RequestBody @Valid PlayerDTO playerDTO) throws Exception {
 
-        return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.addPlayerEntry(clubId, playerDTO.getGivenName(),
-                playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
+        return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.addPlayerEntry(clubId,
+                playerDTO.getGivenName(), playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
                 playerDTO.getDateOfBirth())));
     }
 
@@ -112,7 +112,8 @@ public class ClubController {
     public ResponseEntity<PlayerDTO> getPlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
                                                                   @PathVariable @NotNull Long playerId) throws Exception {
 
-        return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId, playerId)));
+        return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId,
+                playerId)));
     }
 
     @DeleteMapping(value = "/{clubId}/player/{playerId}")
@@ -130,8 +131,8 @@ public class ClubController {
                                                                   @PathVariable @NotNull Long playerId,
                                                                   @RequestBody @Valid PlayerDTO playerDTO) throws Exception {
 
-        return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.updatePlayerEntry(playerId, playerDTO.getGivenName(),
-                playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
+        return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.updatePlayerEntry(playerId,
+                playerDTO.getGivenName(), playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
                 playerDTO.getDateOfBirth(), clubId)));
 
     }
