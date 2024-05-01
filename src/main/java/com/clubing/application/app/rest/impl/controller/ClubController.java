@@ -115,7 +115,7 @@ public class ClubController {
         return ResponseEntity.ok(PlayerDTOConverterUtil.toDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId, playerId)));
     }
 
-    @DeleteMapping(value = "/{clubId}/player/{playerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{clubId}/player/{playerId}")
     public ResponseEntity<?> deletePlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
                                                              @PathVariable @NotNull Long playerId) throws Exception {
 
