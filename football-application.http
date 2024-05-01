@@ -10,7 +10,7 @@ Content-Type: application/json
 ### POST public club (Real Madrid)
 POST http://localhost:8080/club
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "userName": "RealMadrid@footbal.com",
@@ -21,10 +21,10 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
   "public": true
 }
 
-### POST public club (Real Madrid)
+### POST public club (Las Palmas)
 POST http://localhost:8080/club
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "userName": "LasPalmas@footbal.com",
@@ -38,7 +38,7 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
 ### POST private club (Valencia)
 POST http://localhost:8080/club
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "userName": "Valencia@footbal.com",
@@ -52,7 +52,7 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
 ### POST Alfedro Di Stefano in RealMadrid
 POST http://localhost:8080/club/1/player
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "givenName": "Alfredo",
@@ -65,7 +65,7 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
 ### PUT Alfedro Di Stefano in RealMadrid
 PUT http://localhost:8080/club/1/player/1
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "givenName": "Alfredo",
@@ -78,7 +78,7 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
 ### POST Iker Casillas in Real Madrid
 POST http://localhost:8080/club/1/player
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "givenName": "Iker",
@@ -92,7 +92,7 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
 ### POST Santiago Cañizares in Valencia
 POST http://localhost:8080/club/3/player
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "givenName": "Santiago",
@@ -106,17 +106,17 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
 ### GET all the information from Real Madrid
 GET http://localhost:8080/club/1
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 ### GET information from the Clubs
 GET http://localhost:8080/club/
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 ### PUT private club (Valencia)
-PUT http://localhost:8080/club/2
+PUT http://localhost:8080/club/3
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 {
   "userName": "Valencia@footbal.com",
@@ -130,10 +130,10 @@ Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
 ### GET all the players from a club (Real Madrid)
 GET http://localhost:8080/club/1/player
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
 ### DELETE a player from a club (Delete Di Stefano from Real Madrid)
 DELETE http://localhost:8080/club/1/player/1
 Content-Type: application/json
-Authorization: Bearer 1df23bfc-6864-4e64-aee9-367a431bf308
+Authorization: Bearer 0561994c-1d8d-4722-989d-df6ee9c39e35
 
