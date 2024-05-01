@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author Sergio Jiménez del Coso
@@ -38,9 +37,8 @@ public class PlayerServiceImpl implements PlayerService {
 
         _validateClub(clubId);
 
-        PlayerEntry playerEntry = _getPlayerEntriesByClubId(clubId).stream()
-                .filter(player -> playerId == player.getId()).
-                findFirst().orElse(null);
+        PlayerEntry playerEntry = playerRepository.findByClubIdAndId(clubId, playerId).
+                orElseThrow(() -> new NotFoundException("Player not found"));
 
         playerRepository.deleteById(playerEntry.getId());
     }
@@ -55,7 +53,7 @@ public class PlayerServiceImpl implements PlayerService {
     public Collection<PlayerEntry> getPlayerEntriesByClubId(long clubId) throws Exception {
         _validateClub(clubId);
 
-        return _getPlayerEntriesByClubId(clubId);
+        return playerRepository.findAllByClubId(clubId);
     }
 
     @Override
@@ -63,9 +61,8 @@ public class PlayerServiceImpl implements PlayerService {
 
         _validateClub(clubId);
 
-        return _getPlayerEntriesByClubId(clubId).stream()
-                .filter(playerEntry -> playerId == playerEntry.getId()).
-                findFirst().orElse(null);
+        return playerRepository.findByClubIdAndId(clubId, playerId).
+                orElseThrow(() -> new NotFoundException("Player not found"));
     }
 
     @Override
@@ -73,7 +70,7 @@ public class PlayerServiceImpl implements PlayerService {
 
         _validateClub(clubId);
 
-        Collection<PlayerEntry> playerEntries = _getPlayerEntriesByClubId(clubId);
+        Collection<PlayerEntry> playerEntries = playerRepository.findAllByClubId(clubId);
 
         return playerEntries.size();
     }
@@ -86,13 +83,6 @@ public class PlayerServiceImpl implements PlayerService {
         getPlayerEntry(playerId);
 
         return playerRepository.save(new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubId));
-    }
-
-    private Collection<PlayerEntry> _getPlayerEntriesByClubId(long clubId) throws Exception {
-
-        return playerRepository.findAll().stream()
-                .filter((playerEntry -> playerEntry.getClubId() == clubId))
-                .collect(Collectors.toList());
     }
 
     private void _validateClub(long clubId) {

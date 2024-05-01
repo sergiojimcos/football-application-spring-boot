@@ -42,7 +42,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public Collection<ClubEntry> getClubs() throws Exception {
 
-        return clubRepository.findAll();
+        return clubRepository.findAllByPublic();
     }
 
     @Override
