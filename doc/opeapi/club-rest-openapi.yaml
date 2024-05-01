@@ -1,0 +1,221 @@
+openapi: 3.0.1
+info:
+  title: Football Open API
+  description: API to manage club and player information
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+
+paths:
+  /club:
+    post:
+      summary: Create a new club
+      responses:
+        200:
+          description: Club created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClubDTO"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClubDTO"
+    get:
+      summary: Get all the public clubs
+      responses:
+        200:
+          description: Clubs retrieved successfully
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ClubDTO"
+                type: array
+
+  /club/{clubId}:
+    get:
+      summary: Get club by Id
+      parameters:
+        - name: clubId
+          in: path
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        200:
+          description: Club retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClubDTO"
+    put:
+      summary: Update a club by Id
+      parameters:
+        - name: clubId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Club updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClubDTO"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClubDTO"
+
+  /club/{clubId}/player:
+    post:
+      summary: Add a player by clubId
+      parameters:
+        - name: clubId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Player created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerDTO"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerDTO"
+    get:
+      summary: Get all the players by its clubId
+      responses:
+        200:
+          description: Players retrieved successfully
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/PlayerDTO"
+                type: array
+  /club/{clubId}/player/{playerId}:
+    get:
+      summary: Get a player by its Id and club Id
+      parameters:
+        - name: clubId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Player retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerDTO"
+    put:
+      summary: Update a player by its Id and club Id
+      parameters:
+        - name: clubId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerDTO"
+      responses:
+        200:
+          description: Player updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlayerDTO"
+    delete:
+      summary: Delete a player by its Id and clubId
+      parameters:
+        - name: clubId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: playerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: Player deleted successfully
+          content:
+            application/json: { }
+components:
+  schemas:
+    ClubDTO:
+      type: object
+      properties:
+        clubId:
+          type: number
+          format: int64
+        userName:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        officialName:
+          type: string
+        popularName:
+          type: string
+        federation:
+          type: string
+          maxLength: 8
+        public:
+          type: boolean
+        totalPlayers:
+          type: integer
+    PlayerDTO:
+      type: object
+      properties:
+        playerId:
+          type: integer
+          format: int64
+        givenName:
+          type: string
+        familyName:
+          type: string
+        nationality:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date

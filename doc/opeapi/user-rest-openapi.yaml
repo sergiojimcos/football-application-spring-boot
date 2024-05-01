@@ -1,0 +1,40 @@
+openapi: 3.0.1
+info:
+  title: Football Open API
+  description: API to manage club and player information
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+
+paths:
+  /login:
+    post:
+      summary: Create a new user
+      responses:
+        200:
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokeDTO"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserDTO"
+components:
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        userName:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+    TokeDTO:
+      type: object
+      properties:
+        accessToken:
+          type: string
