@@ -4,10 +4,10 @@ info:
   description: API to manage club and player information
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/
+  - url: http://localhost:8080/club
 
 paths:
-  /club:
+  /:
     post:
       summary: Create a new club
       requestBody:
@@ -34,7 +34,7 @@ paths:
                   $ref: "#/components/schemas/ClubDTO"
                 type: array
 
-  /club/{clubId}:
+  /{clubId}:
     get:
       summary: Get a club by Id
       parameters:
@@ -73,7 +73,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ClubDTO"
 
-  /club/{clubId}/player:
+  /{clubId}/player:
     post:
       summary: Add a player by clubId
       parameters:
@@ -106,7 +106,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/PlayerDTO"
                 type: array
-  /club/{clubId}/player/{playerId}:
+  /{clubId}/player/{playerId}:
     get:
       summary: Get a player by its Id and club Id
       parameters:

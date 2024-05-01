@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: Football Open API
-  description: API to manage club and player information
+  title: User Open API
+  description: API to manage user information
   version: 1.0.0
 servers:
   - url: http://localhost:8080/
