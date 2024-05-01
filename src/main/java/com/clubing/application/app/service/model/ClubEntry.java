@@ -21,7 +21,7 @@ public class ClubEntry {
     private String email;
 
     @Column
-    @Size(min = 8)
+    @Size(min = 8, message = "Password should have more that 8 characters")
     private String password;
     private String fullName;
     private String sortName;
