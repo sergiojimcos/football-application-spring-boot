@@ -18,5 +18,7 @@ public interface PlayerRepository extends JpaRepository<PlayerEntry, Long> {
 
     public Optional<PlayerEntry> findById(Long id);
 
-    public List<PlayerEntry> findAll();
+    public List<PlayerEntry> findAllByClubId(Long clanId);
+
+    public Optional<PlayerEntry> findByClubIdAndId(Long clubId, Long playerId);
 }
