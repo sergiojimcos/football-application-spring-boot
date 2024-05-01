@@ -9,4 +9,6 @@ import com.clubing.application.app.service.model.UserEntry;
 public interface UserService {
 
     public UserEntry addUser(UserEntry userEntry) throws Exception;
+
+    public UserEntry fetchUser(String accessToken);
 }

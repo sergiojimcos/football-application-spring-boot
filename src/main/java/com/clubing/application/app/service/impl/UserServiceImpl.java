@@ -20,4 +20,9 @@ public class UserServiceImpl implements UserService {
     public UserEntry addUser(UserEntry userEntry) throws Exception {
         return userRepository.save(userEntry);
     }
+
+    @Override
+    public UserEntry fetchUser(String accessToken){
+        return userRepository.findByAccessToken(accessToken);
+    }
 }

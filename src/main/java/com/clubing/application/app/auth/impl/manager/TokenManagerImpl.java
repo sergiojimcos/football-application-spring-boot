@@ -17,7 +17,6 @@ import java.util.UUID;
 
 @Service
 public class TokenManagerImpl implements TokenManager {
-    private Map<String, String> userTokens = new HashMap<>();
 
     @Autowired
     private UserService userService;
@@ -31,15 +30,15 @@ public class TokenManagerImpl implements TokenManager {
             throw new UnauthorizedException("Invalid credentials");
         }
 
-        UserEntry userEntry = userService.addUser(new UserEntry(username, password));
+        UserEntry userEntry = userService.addUser(new UserEntry(username, password, token));
 
-        userTokens.put(token, userEntry.getUsername());
-        return token;
+        return userEntry.getAccessToken();
     }
 
     @Override
     public boolean isUserLoggedIn(String token) {
-        return userTokens.containsKey(token);
+
+        return userService.fetchUser(token) != null;
     }
 
     private boolean _isValidPassword(String password) {
