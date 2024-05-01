@@ -10,6 +10,11 @@ paths:
   /login:
     post:
       summary: Create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserDTO"
       responses:
         200:
           description: User created successfully
@@ -17,11 +22,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TokeDTO"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserDTO"
 components:
   schemas:
     UserDTO:

@@ -10,6 +10,11 @@ paths:
   /club:
     post:
       summary: Create a new club
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClubDTO"
       responses:
         200:
           description: Club created successfully
@@ -17,11 +22,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ClubDTO"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ClubDTO"
     get:
       summary: Get all the public clubs
       responses:
@@ -36,7 +36,7 @@ paths:
 
   /club/{clubId}:
     get:
-      summary: Get club by Id
+      summary: Get a club by Id
       parameters:
         - name: clubId
           in: path
@@ -60,6 +60,11 @@ paths:
           schema:
             type: integer
             format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClubDTO"
       responses:
         200:
           description: Club updated successfully
@@ -67,11 +72,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ClubDTO"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ClubDTO"
 
   /club/{clubId}/player:
     post:
@@ -83,6 +83,11 @@ paths:
           schema:
             type: integer
             format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PlayerDTO"
       responses:
         200:
           description: Player created successfully
@@ -90,11 +95,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/PlayerDTO"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/PlayerDTO"
     get:
       summary: Get all the players by its clubId
       responses:
