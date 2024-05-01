@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntry, Integer> {
+public interface UserRepository extends JpaRepository<UserEntry, String> {
 
     public UserEntry save(UserEntry userEntry);
+
+    public UserEntry findByAccessToken(String accessToken);
 }

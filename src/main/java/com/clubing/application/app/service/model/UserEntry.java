@@ -10,17 +10,17 @@ import javax.persistence.*;
 public class UserEntry {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String accessToken;
 
     @Column(unique = true)
     private String username;
 
     private String password;
 
-    public UserEntry(String username, String password) {
+    public UserEntry(String username, String password, String accessToken) {
         this.username = username;
         this.password = password;
+        this.accessToken = accessToken;
     }
 
 
@@ -28,12 +28,12 @@ public class UserEntry {
 
     }
 
-    public Integer getId() {
-        return id;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getUsername() {
