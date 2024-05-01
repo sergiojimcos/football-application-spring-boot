@@ -58,7 +58,6 @@ public class ClubController {
         Collection<ClubEntry> clubEntryCollection = clubService.getClubs();
 
         Collection<ClubDTO> clubDTOCollection = clubEntryCollection.stream()
-                .filter(ClubEntry::isPublic)
                 .map(clubEntry -> ClubDTOConverterUtil.toDTO(
                         clubEntry.getId(),
                         clubEntry.getFullName(),
