@@ -20,6 +20,10 @@ import java.nio.file.AccessDeniedException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/**
+ * @author Sergio Jiménez del Coso
+ */
+
 @RestController
 @RequestMapping("/club")
 public class ClubController {
@@ -33,8 +37,8 @@ public class ClubController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClubDTO> postClub(@RequestBody @Valid ClubDTO clubDTO) throws Exception {
 
-        return ResponseEntity.ok(ClubDTOConverterUtil.toDTO(clubService.addClubEntry(clubDTO.getUserName(), clubDTO.getFederation(),
-                clubDTO.getOfficialName(), clubDTO.getPassword(), clubDTO.getPopularName(),
+        return ResponseEntity.ok(ClubDTOConverterUtil.toDTO(clubService.addClubEntry(clubDTO.getUserName(), clubDTO.getPassword(),
+                clubDTO.getOfficialName(), clubDTO.getPopularName(), clubDTO.getFederation(),
                 clubDTO.isPublic())));
     }
 
@@ -82,7 +86,7 @@ public class ClubController {
                                                @RequestBody @NotNull ClubDTO clubDTO) throws Exception {
 
         return ResponseEntity.ok(ClubDTOConverterUtil.toDTO(clubService.updateClubEntry(clubId, clubDTO.getUserName(),
-                clubDTO.getFederation(), clubDTO.getOfficialName(), clubDTO.getPassword(), clubDTO.getPopularName(),
+                clubDTO.getPassword(), clubDTO.getOfficialName(), clubDTO.getPopularName(), clubDTO.getFederation(),
                 clubDTO.isPublic())));
     }
 

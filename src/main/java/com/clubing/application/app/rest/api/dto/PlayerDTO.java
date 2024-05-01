@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author Sergio Jiménez del Coso
+ */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlayerDTO implements Serializable {
 

@@ -8,6 +8,13 @@ import java.io.Serializable;
  */
 
 public class UserDTO implements Serializable {
+
+    @NotNull
+    private String userName;
+
+    @NotNull
+    private String password;
+
     public UserDTO(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -28,10 +35,4 @@ public class UserDTO implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    @NotNull
-    private String userName;
-
-    @NotNull
-    private String password;
 }

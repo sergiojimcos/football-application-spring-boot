@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * @author Sergio Jiménez del Coso
  */
+
 public class TokenDTO implements Serializable {
 
     private String accessToken;

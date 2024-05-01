@@ -9,17 +9,17 @@ import java.util.Collection;
  */
 public interface ClubService {
 
-    public ClubEntry addClubEntry(String email, String federation, String officialName, String password,
-                                  String popularName, boolean isPublic) throws Exception;
+    public ClubEntry addClubEntry(String email, String password, String officialName, String popularName,
+                                  String federation, boolean isPublic) throws Exception;
 
     public void deleteClubEntry(long clubId) throws Exception;
 
     public ClubEntry fetchClubEntry(long clubId);
 
-    public Collection<ClubEntry> getClubs() throws Exception;
-
     public ClubEntry getClubEntry(long clubId) throws Exception;
 
-    public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
-                                     String popularName, boolean isPublic) throws Exception;
+    public Collection<ClubEntry> getClubs() throws Exception;
+
+    public ClubEntry updateClubEntry(long clubId, String email, String password, String officialName, String popularName,
+                                     String federation, boolean isPublic) throws Exception;
 }

@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
+/**
+ * @author Sergio Jiménez del Coso
+ */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClubDTO implements Serializable{
 
@@ -16,6 +20,15 @@ public class ClubDTO implements Serializable{
     private boolean isPublic;
     private Integer totalPlayers;
 
+    public ClubDTO(String userName, String password, String officialName, String popularName, String federation, boolean isPublic) {
+        this.userName = userName;
+        this.password = password;
+        this.officialName = officialName;
+        this.popularName = popularName;
+        this.federation = federation;
+        this.isPublic = isPublic;
+    }
+
     public ClubDTO() {
     }
 
@@ -25,15 +38,6 @@ public class ClubDTO implements Serializable{
 
     public void setTotalPlayers(Integer totalPlayers) {
         this.totalPlayers = totalPlayers;
-    }
-
-    public ClubDTO(String userName, String password, String officialName, String popularName, String federation, boolean isPublic) {
-        this.userName = userName;
-        this.password = password;
-        this.officialName = officialName;
-        this.popularName = popularName;
-        this.federation = federation;
-        this.isPublic = isPublic;
     }
 
     public void setClubId(long clubId) {

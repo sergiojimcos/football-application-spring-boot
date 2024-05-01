@@ -20,7 +20,8 @@ public class ClubServiceImpl implements ClubService {
     private ClubRepository clubRepository;
 
     @Override
-    public ClubEntry addClubEntry(String email, String federation, String officialName, String password, String popularName, boolean isPublic) throws Exception {
+    public ClubEntry addClubEntry(String email, String password, String officialName, String popularName,
+                                  String federation, boolean isPublic) throws Exception {
 
         return clubRepository.save(new ClubEntry(email, password, officialName, popularName, federation, isPublic));
 
@@ -51,8 +52,8 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public ClubEntry updateClubEntry(long clubId, String email, String federation, String officialName, String password,
-                                     String popularName, boolean isPublic) throws Exception {
+    public ClubEntry updateClubEntry(long clubId, String email, String password, String officialName, String popularName,
+                                     String federation, boolean isPublic) throws Exception {
 
         getClubEntry(clubId);
 
