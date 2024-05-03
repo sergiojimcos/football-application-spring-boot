@@ -4,6 +4,7 @@ import com.clubing.application.app.rest.api.dto.ClubDTO;
 import com.clubing.application.app.rest.api.dto.PlayerDTO;
 import com.clubing.application.app.rest.api.dto.TokenDTO;
 import com.clubing.application.app.rest.api.dto.UserDTO;
+import com.clubing.application.app.rest.impl.exception.BadRequestException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class AppApplicationTests {
 
     @Test
     public void testCreateValidClub() throws Exception {
-        ClubDTO clubDTO = new ClubDTO(RandomStringUtils.random(4) + "@email.com", "password", "official", "popularName", "federation", true);
+        ClubDTO clubDTO = new ClubDTO("validClub@email.com", "password", "official", "popularName", RandomStringUtils.random(4), true);
 
         HttpHeaders headers = new HttpHeaders();
 
@@ -66,9 +67,53 @@ public class AppApplicationTests {
     }
 
     @Test
+    public void testCreateInValidClubsWithDuplicatedEmails() throws Exception {
+        ClubDTO clubDTO = new ClubDTO("duplicate@email.com", "password", "official", "popularName", RandomStringUtils.random(4), true);
+
+        _postClub(clubDTO);
+
+        ResponseEntity<BadRequestException> responseEntity = this.testRestTemplate.exchange(
+                _BASE_POST_CLUB, HttpMethod.POST, _buildHttpEntity(clubDTO), BadRequestException.class);
+
+        then(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testCreateNotValidClub() throws Exception {
+
+        // Invalid email
+
+        ClubDTO clubDTO = new ClubDTO("notValidEmail1email.com", "password", "official", "popularName", RandomStringUtils.random(4), true);
+
+        ResponseEntity<BadRequestException> responseEntity = this.testRestTemplate.exchange(
+                _BASE_POST_CLUB, HttpMethod.POST, _buildHttpEntity(clubDTO), BadRequestException.class);
+
+        then(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        // Invalid password
+
+        clubDTO.setPassword(RandomStringUtils.random(4));
+
+        responseEntity = this.testRestTemplate.exchange(_BASE_POST_CLUB, HttpMethod.POST, _buildHttpEntity(clubDTO),
+                BadRequestException.class);
+
+        then(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+
+        // Invalid federation
+
+        clubDTO.setPassword(RandomStringUtils.random(10));
+        clubDTO.setFederation(RandomStringUtils.random(10));
+
+        responseEntity = this.testRestTemplate.exchange(_BASE_POST_CLUB, HttpMethod.POST, _buildHttpEntity(clubDTO),
+                BadRequestException.class);
+
+        then(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
     public void testGetClubById() throws Exception {
-        ClubDTO clubDTO = _postClub(new ClubDTO(RandomStringUtils.random(4) + "@email.com", "password",
-                "official", "popularName", "federation", true));
+        ClubDTO clubDTO = _postClub(new ClubDTO("email1@email.com", "password",
+                "official", "popularName", RandomStringUtils.random(4), true));
 
         ResponseEntity<ClubDTO> clubDTOResponseEntity = this.testRestTemplate.exchange(_BASE_POST_CLUB + "/" +
                 clubDTO.getClubId(), HttpMethod.GET, _buildHttpEntity(clubDTO), ClubDTO.class);
@@ -78,7 +123,7 @@ public class AppApplicationTests {
 
     @Test
     public void testGetClubByIdWithSeveralPlayers() throws Exception {
-        ClubDTO clubDTO = _postClub(new ClubDTO("email@email.com", "password",
+        ClubDTO clubDTO = _postClub(new ClubDTO("email2@email.com", "password",
                 "official", "popularName", "federation", true));
 
         _postPlayer(new PlayerDTO("Aritz", "Aduriz", "Spanish", "arit@bilbao.com",
