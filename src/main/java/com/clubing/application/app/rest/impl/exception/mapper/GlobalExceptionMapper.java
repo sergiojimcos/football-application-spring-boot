@@ -4,11 +4,13 @@ import com.clubing.application.app.rest.impl.exception.BadRequestException;
 import com.clubing.application.app.rest.impl.exception.response.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
  * @author Sergio Jiménez del Coso
  */
 
-@RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionMapper {
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -29,5 +31,11 @@ public class GlobalExceptionMapper {
 
         return ResponseEntity.badRequest().body(new ExceptionResponse(HttpStatus.BAD_REQUEST,
                 constraintViolations.get(lastIndex).getMessage(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> handlePermissionException(AccessDeniedException accessDeniedException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ExceptionResponse(HttpStatus.UNAUTHORIZED,
+                accessDeniedException.getMessage(), LocalDateTime.now()));
     }
 }

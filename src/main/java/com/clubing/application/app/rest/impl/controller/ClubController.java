@@ -136,8 +136,4 @@ public class ClubController {
 
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<String> handlePermissionException(AccessDeniedException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-    }
 }
