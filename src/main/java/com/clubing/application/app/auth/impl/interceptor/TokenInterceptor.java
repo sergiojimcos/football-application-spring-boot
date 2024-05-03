@@ -1,12 +1,14 @@
 package com.clubing.application.app.auth.impl.interceptor;
 
 import com.clubing.application.app.auth.api.manager.TokenManager;
+import com.clubing.application.app.rest.impl.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.file.AccessDeniedException;
 
 /**
  * @author Sergio Jiménez del Coso
@@ -31,8 +33,6 @@ public class TokenInterceptor implements HandlerInterceptor {
             }
         }
 
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-
-        return false;
+        throw new AccessDeniedException("Unauthorized user");
     }
 }
