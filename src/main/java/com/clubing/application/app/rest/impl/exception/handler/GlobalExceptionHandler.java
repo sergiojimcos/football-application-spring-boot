@@ -1,12 +1,10 @@
-package com.clubing.application.app.rest.impl.exception.mapper;
+package com.clubing.application.app.rest.impl.exception.handler;
 
-import com.clubing.application.app.rest.impl.exception.BadRequestException;
 import com.clubing.application.app.rest.impl.exception.response.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -20,7 +18,7 @@ import java.util.List;
  */
 
 @ControllerAdvice
-public class GlobalExceptionMapper {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleValidationException(ConstraintViolationException constraintViolationException) {
