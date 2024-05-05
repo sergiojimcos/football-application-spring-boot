@@ -12,6 +12,7 @@ com/clubing/application/app/api/ClubService.class
 com/clubing/application/app/rest/impl/converter/util/PlayerDTOConverterUtil.class
 com/clubing/application/app/auth/impl/interceptor/TokenInterceptor.class
 com/clubing/application/app/service/impl/PlayerServiceImpl.class
+com/clubing/application/app/rest/impl/exception/response/ExceptionResponse.class
 com/clubing/application/app/auth/impl/configurer/WebApplicationConfigurer.class
 com/clubing/application/app/service/repository/UserRepository.class
 com/clubing/application/app/rest/impl/exception/UnauthorizedException.class
@@ -28,6 +29,7 @@ com/clubing/application/app/api/UserService.class
 com/clubing/application/app/rest/api/dto/UserDTO.class
 com/clubing/application/app/rest/impl/controller/ClubController.class
 com/clubing/application/app/service/repository/ClubRepository.class
+com/clubing/application/app/rest/impl/exception/handler/GlobalExceptionHandler.class
 com/clubing/application/app/service/model/PlayerEntry.class
 com/clubing/application/app/service/model/UserEntry.class
 com/clubing/application/app/service/repository/PlayerRepository.class

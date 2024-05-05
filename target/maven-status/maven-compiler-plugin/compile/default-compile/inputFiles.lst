@@ -11,7 +11,9 @@
 /Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/auth/impl/configurer/WebApplicationConfigurer.java
 /Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/rest/api/dto/TokenDTO.java
 /Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/rest/impl/converter/util/PlayerDTOConverterUtil.java
+/Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/rest/impl/exception/response/ExceptionResponse.java
 /Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/api/ClubService.java
+/Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/rest/impl/exception/handler/GlobalExceptionHandler.java
 /Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/service/repository/PlayerRepository.java
 /Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/rest/impl/converter/util/ClubDTOConverterUtil.java
 /Users/liferay/Desktop/football-application-spring-boot/src/main/java/com/clubing/application/app/rest/impl/exception/UnauthorizedException.java
