@@ -55,13 +55,7 @@ public class AppApplicationTests {
     public void testCreateValidClub() throws Exception {
         ClubDTO clubDTO = new ClubDTO("validClub@email.com", "password", "official", "popularName", RandomStringUtils.random(4), true);
 
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.setBearerAuth(_token);
-
-        HttpEntity<ClubDTO> httpEntity = new HttpEntity<>(clubDTO, headers);
-
-        ResponseEntity<ClubDTO> clubDTOResponseEntity = this.testRestTemplate.exchange(_BASE_POST_CLUB, HttpMethod.POST, httpEntity, ClubDTO.class);
+        ResponseEntity<ClubDTO> clubDTOResponseEntity = this.testRestTemplate.exchange(_BASE_POST_CLUB, HttpMethod.POST, _buildHttpEntity(clubDTO), ClubDTO.class);
 
         _assertValidClub(clubDTOResponseEntity, clubDTO);
     }
