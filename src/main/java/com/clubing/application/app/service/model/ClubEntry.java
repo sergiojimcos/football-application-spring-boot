@@ -27,7 +27,7 @@ public class ClubEntry {
     private String sortName;
 
     @Column()
-    @Size(max = 8)
+    @Size(max = 8, message = "Federation name cant have more that 8 characters")
     private String federationName;
     private boolean isPublic;
 
