@@ -61,7 +61,7 @@ public class AppApplicationTests {
     }
 
     @Test
-    public void testCreateInValidClubsWithDuplicatedEmails() throws Exception {
+    public void testCreateInvalidClubsWithDuplicatedEmails() throws Exception {
         ClubDTO clubDTO = new ClubDTO("duplicate@email.com", "password", "official", "popularName", RandomStringUtils.random(4), true);
 
         _postClub(clubDTO);
