@@ -21,5 +21,5 @@ public interface ClubService {
     public Collection<ClubEntry> getClubs() throws Exception;
 
     public ClubEntry updateClubEntry(long clubId, String email, String password, String officialName, String popularName,
-                                     String federation, boolean isPublic) throws Exception;
+                                     String federation, Boolean isPublic) throws Exception;
 }

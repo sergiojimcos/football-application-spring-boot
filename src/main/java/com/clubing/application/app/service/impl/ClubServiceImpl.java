@@ -4,10 +4,12 @@ import com.clubing.application.app.api.ClubService;
 import com.clubing.application.app.rest.impl.exception.NotFoundException;
 import com.clubing.application.app.service.model.ClubEntry;
 import com.clubing.application.app.service.repository.ClubRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * @author Sergio Jiménez del Coso
@@ -53,12 +55,30 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public ClubEntry updateClubEntry(long clubId, String email, String password, String officialName, String popularName,
-                                     String federation, boolean isPublic) throws Exception {
+                                     String federation, Boolean isPublic) throws Exception {
 
-        getClubEntry(clubId);
+        ClubEntry clubEntry = getClubEntry(clubId);
 
-        return clubRepository.save(new ClubEntry(clubId, email, password, officialName, popularName, federation,
-                isPublic));
+        if (!StringUtils.isEmpty(email)) {
+            clubEntry.setEmail(email);
+        }
+        if (!StringUtils.isEmpty(password)) {
+            clubEntry.setPassword(password);
+        }
+        if (!StringUtils.isEmpty(officialName)) {
+            clubEntry.setFullName(officialName);
+        }
+        if (!StringUtils.isEmpty(popularName)) {
+            clubEntry.setSortName(popularName);
+        }
+        if (!StringUtils.isEmpty(federation)) {
+            clubEntry.setFederationName(federation);
+        }
+        if (!Objects.isNull(isPublic)) {
+            clubEntry.setPublic(isPublic);
+        }
+
+        return clubRepository.save(clubEntry);
 
     }
 }
