@@ -1,5 +1,10 @@
 package com.clubing.application.app.service.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +12,10 @@ import javax.persistence.*;
  */
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class UserEntry {
 
     @Id
@@ -16,39 +25,4 @@ public class UserEntry {
     private String username;
 
     private String password;
-
-    public UserEntry(String username, String password, String accessToken) {
-        this.username = username;
-        this.password = password;
-        this.accessToken = accessToken;
-    }
-
-
-    public UserEntry() {
-
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

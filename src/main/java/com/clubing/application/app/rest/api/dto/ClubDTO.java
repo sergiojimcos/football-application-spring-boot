@@ -1,6 +1,10 @@
 package com.clubing.application.app.rest.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -9,6 +13,10 @@ import java.io.Serializable;
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ToString
+@NoArgsConstructor
+@Getter
+@Setter
 public class ClubDTO implements Serializable{
 
     private long clubId;
@@ -27,85 +35,5 @@ public class ClubDTO implements Serializable{
         this.popularName = popularName;
         this.federation = federation;
         this.isPublic = isPublic;
-    }
-
-    public ClubDTO() {
-    }
-
-    public Integer getTotalPlayers() {
-        return totalPlayers;
-    }
-
-    public void setTotalPlayers(Integer totalPlayers) {
-        this.totalPlayers = totalPlayers;
-    }
-
-    public void setClubId(long clubId) {
-        this.clubId = clubId;
-    }
-
-    public long getClubId() {
-        return clubId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getOfficialName() {
-        return officialName;
-    }
-
-    public void setOfficialName(String officialName) {
-        this.officialName = officialName;
-    }
-
-    public String getPopularName() {
-        return popularName;
-    }
-
-    public void setPopularName(String popularName) {
-        this.popularName = popularName;
-    }
-
-    public String getFederation() {
-        return federation;
-    }
-
-    public void setFederation(String federation) {
-        this.federation = federation;
-    }
-
-    public boolean isPublic() {
-        return isPublic;
-    }
-
-    public void setPublic(boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    @Override
-    public String toString() {
-        return "ClubDTO{" +
-                "clubId='" + clubId + '\'' +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", officialName='" + officialName + '\'' +
-                ", popularName='" + popularName + '\'' +
-                ", federation='" + federation + '\'' +
-                ", isPublic=" + isPublic +
-                '}';
     }
 }

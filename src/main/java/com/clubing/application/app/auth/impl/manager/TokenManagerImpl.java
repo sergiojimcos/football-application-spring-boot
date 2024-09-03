@@ -28,7 +28,7 @@ public class TokenManagerImpl implements TokenManager {
             throw new UnauthorizedException("Invalid credentials");
         }
 
-        UserEntry userEntry = userService.addUser(new UserEntry(username, password, token));
+        UserEntry userEntry = userService.addUser(new UserEntry(token, username, password));
 
         return userEntry.getAccessToken();
     }
