@@ -24,37 +24,40 @@ public class PlayerEntry {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    private long clubId;
+    @ManyToOne
+    @JoinColumn(name = "clubEntry_id")
+    private ClubEntry clubEntry;
 
-    public PlayerEntry(long id, String name, String surname, String nationality, String email, Date dateOfBirth, long clubId) {
+    public PlayerEntry(long id, String name, String surname, String nationality, String email, Date dateOfBirth,
+                       ClubEntry clubEntry) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.nationality = nationality;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
-        this.clubId = clubId;
+        this.clubEntry = clubEntry;
     }
 
-    public PlayerEntry(String name, String surname, String nationality, String email, Date dateOfBirth, long clubId) {
+    public PlayerEntry(String name, String surname, String nationality, String email, Date dateOfBirth, ClubEntry clubEntry) {
         this.name = name;
         this.surname = surname;
         this.nationality = nationality;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
-        this.clubId = clubId;
+        this.clubEntry = clubEntry;
     }
 
     public PlayerEntry() {
 
     }
 
-    public void setClubId(long clubId) {
-        this.clubId = clubId;
+    public void setClubId(ClubEntry clubEntry) {
+        this.clubEntry = clubEntry;
     }
 
-    public long getClubId() {
-        return clubId;
+    public ClubEntry getClubEntry() {
+        return clubEntry;
     }
 
     public void setId(long id) {

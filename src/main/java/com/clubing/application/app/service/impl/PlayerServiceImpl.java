@@ -27,17 +27,17 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public PlayerEntry addPlayerEntry(long clubId, String name, String surname, String nationality, String email, Date birthDate) throws Exception {
 
-        _validateClub(clubId);
+        ClubEntry clubEntry = clubService.getClubEntry(clubId);
 
-        return playerRepository.save(new PlayerEntry(name, surname, nationality, email, birthDate, clubId));
+        return playerRepository.save(new PlayerEntry(name, surname, nationality, email, birthDate, clubEntry));
     }
 
     @Override
     public void deletePlayerEntry(long clubId, long playerId) throws Exception {
 
-        _validateClub(clubId);
+        clubService.getClubEntry(clubId);
 
-        PlayerEntry playerEntry = playerRepository.findByClubIdAndId(clubId, playerId).
+        PlayerEntry playerEntry = playerRepository.findByClubEntry_IdAndId(clubId, playerId).
                 orElseThrow(() -> new NotFoundException("Player not found"));
 
         playerRepository.deleteById(playerEntry.getId());
@@ -51,26 +51,26 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public Collection<PlayerEntry> getPlayerEntriesByClubId(long clubId) throws Exception {
-        _validateClub(clubId);
+        clubService.getClubEntry(clubId);
 
-        return playerRepository.findAllByClubId(clubId);
+        return playerRepository.findAllByClubEntry_Id(clubId);
     }
 
     @Override
     public PlayerEntry getPlayerEntryByClubIdAndPlayerId(long clubId, long playerId) throws Exception {
 
-        _validateClub(clubId);
+        clubService.getClubEntry(clubId);
 
-        return playerRepository.findByClubIdAndId(clubId, playerId).
+        return playerRepository.findByClubEntry_IdAndId(clubId, playerId).
                 orElseThrow(() -> new NotFoundException("Player not found"));
     }
 
     @Override
     public int getPlayerEntriesByClubIdCount(long clubId) throws Exception {
 
-        _validateClub(clubId);
+        clubService.getClubEntry(clubId);
 
-        Collection<PlayerEntry> playerEntries = playerRepository.findAllByClubId(clubId);
+        Collection<PlayerEntry> playerEntries = playerRepository.findAllByClubEntry_Id(clubId);
 
         return playerEntries.size();
     }
@@ -78,18 +78,9 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public PlayerEntry updatePlayerEntry(long playerId, String name, String surname, String nationality, String email, Date birthDate, long clubId) throws Exception {
 
-        _validateClub(clubId);
-
         getPlayerEntry(playerId);
 
-        return playerRepository.save(new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubId));
+        return playerRepository.save(new PlayerEntry(playerId, name, surname, nationality, email, birthDate, clubService.getClubEntry(clubId)));
     }
 
-    private void _validateClub(long clubId) {
-        ClubEntry clubEntry = clubService.fetchClubEntry(clubId);
-
-        if (clubEntry == null) {
-            throw new NotFoundException("Club not found");
-        }
-    }
 }

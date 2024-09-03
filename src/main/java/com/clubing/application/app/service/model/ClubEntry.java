@@ -3,6 +3,7 @@ package com.clubing.application.app.service.model;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author Sergio Jiménez del Coso
@@ -30,6 +31,9 @@ public class ClubEntry {
     @Size(max = 8, message = "Federation name cant have more that 8 characters")
     private String federationName;
     private boolean isPublic;
+
+    @OneToMany(mappedBy = "clubEntry", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PlayerEntry> playerEntryList;
 
     public ClubEntry(String email, String password, String fullName, String sortName, String federationName, boolean isPublic) {
         this.email = email;
