@@ -6,6 +6,7 @@ import com.clubing.application.app.rest.api.dto.ClubDTO;
 import com.clubing.application.app.rest.api.dto.PlayerDTO;
 import com.clubing.application.app.rest.impl.converter.util.ClubDTOConverterUtil;
 import com.clubing.application.app.rest.impl.converter.util.PlayerDTOConverterUtil;
+import com.clubing.application.app.rest.impl.validator.ClubValidator;
 import com.clubing.application.app.service.model.ClubEntry;
 import com.clubing.application.app.service.model.PlayerEntry;
 import org.springframework.beans.factory.annotation.Autowired;
