@@ -11,4 +11,6 @@ public interface UserService {
     public UserEntry addUser(UserEntry userEntry) throws Exception;
 
     public UserEntry fetchUser(String accessToken);
+
+    public UserEntry fetchUserByName(String username);
 }

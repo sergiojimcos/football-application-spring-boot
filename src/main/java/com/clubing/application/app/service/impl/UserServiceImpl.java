@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService {
     public UserEntry fetchUser(String accessToken){
         return userRepository.findByAccessToken(accessToken);
     }
+
+    @Override
+    public UserEntry fetchUserByName(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
 }
