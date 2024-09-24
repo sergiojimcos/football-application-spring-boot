@@ -5,6 +5,7 @@ import com.clubing.application.app.auth.api.manager.TokenManager;
 import com.clubing.application.app.rest.api.dto.TokenDTO;
 import com.clubing.application.app.rest.api.dto.UserDTO;
 import com.clubing.application.app.rest.impl.converter.util.TokenDTOConverterUtil;
+import com.clubing.application.app.rest.impl.converter.util.UserDTOConverterUtil;
 import com.clubing.application.app.service.model.UserEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,12 +52,13 @@ public class AuthController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) throws Exception {
 
         UserEntry userEntry = userService.fetchUserByName(userDTO.getUserName());
 
         if (userEntry == null) {
-            return ResponseEntity.ok(userDTO);
+            userEntry = userService.addUser(userDTO.getUserName(), userDTO.getPassword());
+            return ResponseEntity.ok(UserDTOConverterUtil.toDTO(userEntry));
         }
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(null);

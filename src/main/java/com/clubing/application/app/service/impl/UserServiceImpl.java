@@ -17,13 +17,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public UserEntry addUser(UserEntry userEntry) throws Exception {
-        return userRepository.save(userEntry);
-    }
+    public UserEntry addUser(String userName, String password) throws Exception {
 
-    @Override
-    public UserEntry fetchUser(String accessToken){
-        return userRepository.findByAccessToken(accessToken);
+
+        return userRepository.save(new UserEntry() {{
+            setUsername(userName);
+            setPassword(password);
+        }});
     }
 
     @Override

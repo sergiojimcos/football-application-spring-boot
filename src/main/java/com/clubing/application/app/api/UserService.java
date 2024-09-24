@@ -8,9 +8,7 @@ import com.clubing.application.app.service.model.UserEntry;
 
 public interface UserService {
 
-    public UserEntry addUser(UserEntry userEntry) throws Exception;
-
-    public UserEntry fetchUser(String accessToken);
+    public UserEntry addUser(String userName, String password) throws Exception;
 
     public UserEntry fetchUserByName(String username);
 }

@@ -15,7 +15,5 @@ public interface UserRepository extends JpaRepository<UserEntry, String> {
 
     public UserEntry save(UserEntry userEntry);
 
-    public UserEntry findByAccessToken(String accessToken);
-
     public Optional<UserEntry> findByUsername(String userId);
 }

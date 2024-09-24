@@ -19,7 +19,8 @@ import javax.persistence.*;
 public class UserEntry {
 
     @Id
-    private String accessToken;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true)
     private String username;
