@@ -34,12 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/user/login").permitAll()
+                .antMatchers("/user/create").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // No session is going to created
 
-        // Agregar el filtro JwtAuthenticationFilter antes de UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
