@@ -1,12 +1,16 @@
 package com.clubing.application.app.auth.api.manager;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  * @author Sergio Jiménez del Coso
  */
 
 public interface TokenManager {
 
-    public String loginUser(String username, String password) throws Exception;
+    String extractUsername(String token);
 
-    public boolean isUserLoggedIn(String token);
+    String generateToken(UserDetails userDetails);
+
+    Boolean validateToken(String token, UserDetails userDetails);
 }
