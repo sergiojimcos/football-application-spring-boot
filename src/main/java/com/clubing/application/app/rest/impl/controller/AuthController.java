@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,10 +32,10 @@ public class AuthController {
     private TokenManager tokenManager;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    private AuthenticationManager authenticationManager;
 
 
     @Autowired
@@ -42,13 +43,27 @@ public class AuthController {
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TokenDTO> login(@RequestBody @Valid UserDTO userDTO) throws Exception {
+
+        UserDetails userDetails;
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userDTO.getUserName(), userDTO.getPassword())
         );
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userDTO.getUserName());
+        try {
+            userDetails = userDetailsService.loadUserByUsername(userDTO.getUserName());
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
 
-        return ResponseEntity.ok(TokenDTOConverterUtil.toDTO(tokenManager.generateToken(userDetails)));
+        String token;
+        try {
+            token = tokenManager.generateToken(userDetails);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+
+        return ResponseEntity.ok(TokenDTOConverterUtil.toDTO(token));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
