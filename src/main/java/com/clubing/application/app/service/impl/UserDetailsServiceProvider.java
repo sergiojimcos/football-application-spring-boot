@@ -9,11 +9,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 
+/**
+ * @author Sergio Jiménez del Coso
+ */
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceProvider implements UserDetailsService {
 
     @Autowired
     private UserService userService;
@@ -24,7 +27,7 @@ public class MyUserDetailsService implements UserDetailsService {
         UserEntry userEntry = userService.fetchUserByName(username);
 
         if (userEntry != null) {
-            return new User(userEntry.getUsername(), userEntry.getPassword(), Collections.emptyList());
+            return new User(userEntry.getUsername(), userEntry.getPassword(), new ArrayList<>());
         } else {
             throw new UsernameNotFoundException("User with username: " + username + " is not created");
         }
