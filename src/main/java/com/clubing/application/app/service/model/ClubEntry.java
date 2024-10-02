@@ -42,6 +42,12 @@ public class ClubEntry {
     @OneToMany(mappedBy = "clubEntry", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayerEntry> playerEntryList;
 
+    @OneToMany(mappedBy = "localClubEntry")
+    private List<Match> localMatchList;
+
+    @OneToMany(mappedBy = "visitantClubEntry")
+    private List<Match> visitantMatchList;
+
     public ClubEntry(String email, String password, String fullName, String sortName, String federationName, boolean isPublic) {
         this.email = email;
         this.password = password;
