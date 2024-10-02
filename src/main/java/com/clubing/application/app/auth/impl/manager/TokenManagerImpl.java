@@ -1,12 +1,10 @@
 package com.clubing.application.app.auth.impl.manager;
 
-import com.clubing.application.app.api.UserService;
 import com.clubing.application.app.auth.api.manager.TokenManager;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +21,7 @@ import java.util.function.Function;
 @Service
 public class TokenManagerImpl implements TokenManager {
 
-    @Autowired
-    private UserService userService;
-
-    private static final String SECRET_KEY = "EsteEsUnClaveSeguraDe32Caracteres";
-    private static final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-
+    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     @Override
     public String extractUsername(String token) {
@@ -73,8 +66,8 @@ public class TokenManagerImpl implements TokenManager {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // Token válido por 10 horas
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // Token valid just 10 hours
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 }
