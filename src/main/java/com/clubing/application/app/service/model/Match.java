@@ -7,6 +7,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Time;
 
+/**
+ * @author Sergio Jiménez del Coso
+ */
+
 @Entity
 @Setter
 @Getter
@@ -27,4 +31,9 @@ public class Match {
     @JoinColumn(name = "club_entry_visitant_id")
     private ClubEntry visitantClubEntry;
 
+    public Match(Time matchDate, ClubEntry localClubEntry, ClubEntry visitantClubEntry) {
+        this.matchDate = matchDate;
+        this.localClubEntry = localClubEntry;
+        this.visitantClubEntry = visitantClubEntry;
+    }
 }
