@@ -27,13 +27,16 @@ import java.util.stream.Collectors;
 public class ClubController {
 
     @Autowired
+    private ClubDTOConverter clubDTOConverter;
+
+    @Autowired
     private ClubService clubService;
 
     @Autowired
-    private PlayerService playerService;
+    private PlayerDTOConverter playerDTOConverter;
 
     @Autowired
-    private ClubDTOConverter clubDTOConverter;
+    private PlayerService playerService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClubDTO> postClub(@RequestBody @Valid ClubDTO clubDTO) throws Exception {
@@ -48,7 +51,7 @@ public class ClubController {
     public ResponseEntity<PlayerDTO> postPlayerBydClubId(@PathVariable @NotNull Long clubId,
                                                          @RequestBody @Valid PlayerDTO playerDTO) throws Exception {
 
-        return ResponseEntity.ok(PlayerDTOConverter.toDTO(playerService.addPlayerEntry(clubId,
+        return ResponseEntity.ok(playerDTOConverter.convert(playerService.addPlayerEntry(clubId,
                 playerDTO.getGivenName(), playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
                 playerDTO.getDateOfBirth())));
     }
@@ -96,7 +99,7 @@ public class ClubController {
         Collection<PlayerEntry> playerEntriesByClubId = playerService.getPlayerEntriesByClubId(clubId);
 
         Collection<PlayerDTO> playerDTOCollection = playerEntriesByClubId.stream()
-                .map(playerEntry -> PlayerDTOConverter.toDTO(
+                .map(playerEntry -> playerDTOConverter.toDTO(
                         playerEntry.getId(),
                         playerEntry.getName(),
                         playerEntry.getSurname()
@@ -112,7 +115,7 @@ public class ClubController {
     public ResponseEntity<PlayerDTO> getPlayerByClubIdAndPlayerId(@PathVariable @NotNull Long clubId,
                                                                   @PathVariable @NotNull Long playerId) throws Exception {
 
-        return ResponseEntity.ok(PlayerDTOConverter.toDTO(playerService.getPlayerEntryByClubIdAndPlayerId(clubId,
+        return ResponseEntity.ok(playerDTOConverter.convert(playerService.getPlayerEntryByClubIdAndPlayerId(clubId,
                 playerId)));
     }
 
@@ -131,7 +134,7 @@ public class ClubController {
                                                                   @PathVariable @NotNull Long playerId,
                                                                   @RequestBody @Valid PlayerDTO playerDTO) throws Exception {
 
-        return ResponseEntity.ok(PlayerDTOConverter.toDTO(playerService.updatePlayerEntry(playerId,
+        return ResponseEntity.ok(playerDTOConverter.convert(playerService.updatePlayerEntry(playerId,
                 playerDTO.getGivenName(), playerDTO.getFamilyName(), playerDTO.getNationality(), playerDTO.getEmail(),
                 playerDTO.getDateOfBirth(), clubId)));
 
