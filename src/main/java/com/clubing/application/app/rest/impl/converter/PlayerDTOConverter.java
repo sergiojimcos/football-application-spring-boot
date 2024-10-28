@@ -8,7 +8,7 @@ import com.clubing.application.app.service.model.PlayerEntry;
  * @author Sergio Jiménez del Coso
  */
 
-public class PlayerDTOConverterUtil {
+public class PlayerDTOConverter {
 
     public static PlayerDTO toDTO(long playerId, String playerName, String playerFamilyName) {
         return new PlayerDTO() {{

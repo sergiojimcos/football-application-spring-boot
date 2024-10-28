@@ -15,8 +15,8 @@ public class MatchDTOConverter implements Converter<Match, MatchOutDTO> {
 
         return new MatchOutDTO(){{
             setMatchDate(new Date(match.getMatchDate().getTime()));
-            setLocalClub(ClubDTOConverterUtil.toDTO(match.getLocalClubEntry()));
-            setVisitantClub(ClubDTOConverterUtil.toDTO(match.getVisitantClubEntry()));
+            setLocalClub(ClubDTOConverter.toDTO(match.getLocalClubEntry()));
+            setVisitantClub(ClubDTOConverter.toDTO(match.getVisitantClubEntry()));
         }};
     }
 }

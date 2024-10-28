@@ -7,7 +7,7 @@ import com.clubing.application.app.service.model.ClubEntry;
  * @author Sergio Jiménez del Coso
  */
 
-public class ClubDTOConverterUtil {
+public class ClubDTOConverter {
 
     public static ClubDTO toDTO(long clubId, String officialName, String popularName, String federation,
                                 boolean isPublic) {

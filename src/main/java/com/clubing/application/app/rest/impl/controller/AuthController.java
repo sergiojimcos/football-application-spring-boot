@@ -4,8 +4,8 @@ import com.clubing.application.app.api.UserService;
 import com.clubing.application.app.auth.api.manager.TokenManager;
 import com.clubing.application.app.rest.api.dto.TokenDTO;
 import com.clubing.application.app.rest.api.dto.UserDTO;
-import com.clubing.application.app.rest.impl.converter.TokenDTOConverterUtil;
-import com.clubing.application.app.rest.impl.converter.UserDTOConverterUtil;
+import com.clubing.application.app.rest.impl.converter.TokenDTOConverter;
+import com.clubing.application.app.rest.impl.converter.UserDTOConverter;
 import com.clubing.application.app.service.model.UserEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,7 +63,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
-        return ResponseEntity.ok(TokenDTOConverterUtil.toDTO(token));
+        return ResponseEntity.ok(TokenDTOConverter.toDTO(token));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -73,7 +73,7 @@ public class AuthController {
 
         if (userEntry == null) {
             userEntry = userService.addUser(userDTO.getUserName(), userDTO.getPassword());
-            return ResponseEntity.ok(UserDTOConverterUtil.toDTO(userEntry));
+            return ResponseEntity.ok(UserDTOConverter.toDTO(userEntry));
         }
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
