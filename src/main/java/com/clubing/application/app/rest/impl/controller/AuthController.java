@@ -29,6 +29,9 @@ import javax.validation.Valid;
 public class AuthController {
 
     @Autowired
+    private TokenDTOConverter tokenDTOConverter;
+
+    @Autowired
     private TokenManager tokenManager;
 
     @Autowired
@@ -63,7 +66,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
-        return ResponseEntity.ok(TokenDTOConverter.toDTO(token));
+        return ResponseEntity.ok(tokenDTOConverter.convert(token));
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
