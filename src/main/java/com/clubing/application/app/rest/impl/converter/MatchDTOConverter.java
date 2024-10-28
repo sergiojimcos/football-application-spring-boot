@@ -2,6 +2,7 @@ package com.clubing.application.app.rest.impl.converter;
 
 import com.clubing.application.app.rest.api.dto.MatchOutDTO;
 import com.clubing.application.app.service.model.Match;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -10,13 +11,16 @@ import java.util.Date;
 @Component
 public class MatchDTOConverter implements Converter<Match, MatchOutDTO> {
 
+    @Autowired
+    private ClubDTOConverter clubDTOConverter;
+
     @Override
     public MatchOutDTO convert(Match match) {
 
         return new MatchOutDTO(){{
             setMatchDate(new Date(match.getMatchDate().getTime()));
-            setLocalClub(ClubDTOConverter.toDTO(match.getLocalClubEntry()));
-            setVisitantClub(ClubDTOConverter.toDTO(match.getVisitantClubEntry()));
+            setLocalClub(clubDTOConverter.convert(match.getLocalClubEntry()));
+            setVisitantClub(clubDTOConverter.convert(match.getVisitantClubEntry()));
         }};
     }
 }

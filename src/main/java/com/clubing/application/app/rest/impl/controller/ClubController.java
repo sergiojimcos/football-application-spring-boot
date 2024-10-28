@@ -32,10 +32,13 @@ public class ClubController {
     @Autowired
     private PlayerService playerService;
 
+    @Autowired
+    private ClubDTOConverter clubDTOConverter;
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClubDTO> postClub(@RequestBody @Valid ClubDTO clubDTO) throws Exception {
 
-        return ResponseEntity.ok(ClubDTOConverter.toDTO(clubService.addClubEntry(clubDTO.getUserName(),
+        return ResponseEntity.ok(clubDTOConverter.convert(clubService.addClubEntry(clubDTO.getUserName(),
                 clubDTO.getPassword(), clubDTO.getOfficialName(), clubDTO.getPopularName(), clubDTO.getFederation(),
                 clubDTO.isPublic())));
     }
@@ -56,7 +59,7 @@ public class ClubController {
         Collection<ClubEntry> clubEntryCollection = clubService.getClubs();
 
         Collection<ClubDTO> clubDTOCollection = clubEntryCollection.stream()
-                .map(clubEntry -> ClubDTOConverter.toDTO(
+                .map(clubEntry -> clubDTOConverter.toDTO(
                         clubEntry.getId(),
                         clubEntry.getFullName(),
                         clubEntry.getSortName(),
@@ -71,7 +74,7 @@ public class ClubController {
     @GetMapping(value = "/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ClubDTO> getClubById(@PathVariable @NotNull Long clubId) throws Exception {
 
-        ClubDTO clubDTO = ClubDTOConverter.toDTO(clubService.getClubEntry(clubId));
+        ClubDTO clubDTO = clubDTOConverter.convert(clubService.getClubEntry(clubId));
         clubDTO.setTotalPlayers(playerService.getPlayerEntriesByClubIdCount(clubId));
 
         return ResponseEntity.ok(clubDTO);
@@ -82,7 +85,7 @@ public class ClubController {
     public ResponseEntity<ClubDTO> putClubById(@PathVariable @NotNull Long clubId,
                                                @RequestBody @NotNull ClubDTO clubDTO) throws Exception {
 
-        return ResponseEntity.ok(ClubDTOConverter.toDTO(clubService.updateClubEntry(clubId, clubDTO.getUserName(),
+        return ResponseEntity.ok(clubDTOConverter.convert(clubService.updateClubEntry(clubId, clubDTO.getUserName(),
                 clubDTO.getPassword(), clubDTO.getOfficialName(), clubDTO.getPopularName(), clubDTO.getFederation(),
                 clubDTO.isPublic())));
     }
