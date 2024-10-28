@@ -1,4 +1,4 @@
-package com.clubing.application.app.rest.impl.converter.util;
+package com.clubing.application.app.rest.impl.converter;
 
 import com.clubing.application.app.rest.api.dto.UserDTO;
 import com.clubing.application.app.service.model.UserEntry;

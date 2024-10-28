@@ -3,7 +3,7 @@ package com.clubing.application.app.rest.impl.controller;
 import com.clubing.application.app.api.MatchService;
 import com.clubing.application.app.rest.api.dto.MatchDTO;
 import com.clubing.application.app.rest.api.dto.MatchOutDTO;
-import com.clubing.application.app.rest.impl.converter.util.MatchDTOConverter;
+import com.clubing.application.app.rest.impl.converter.MatchDTOConverter;
 import com.clubing.application.app.service.model.Match;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
