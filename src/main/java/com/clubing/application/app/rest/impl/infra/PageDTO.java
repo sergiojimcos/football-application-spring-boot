@@ -1,26 +1,24 @@
 package com.clubing.application.app.rest.impl.infra;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+import java.util.Collection;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class PageDTO <T> {
 
-    private List<T> content;
+    private Collection<T> content;
     private int pageNumber;
     private int pageSize;
     private long totalElements;
 
-    public PageDTO(List<T> content, int pageNumber, int pageSize, long totalElements) {
-        this.content = content;
-        this.pageNumber = pageNumber;
-        this.pageSize = pageSize;
-        this.totalElements = totalElements;
-    }
-
-    public List<T> getContent() {
+    public Collection<T> getContent() {
         return content;
     }
 
-    public void setContent(List<T> content) {
+    public void setContent(Collection<T> content) {
         this.content = content;
     }
 
