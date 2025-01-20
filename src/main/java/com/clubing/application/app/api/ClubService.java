@@ -1,6 +1,7 @@
 package com.clubing.application.app.api;
 
 import com.clubing.application.app.service.model.ClubEntry;
+import org.springframework.data.domain.Page;
 
 import java.util.Collection;
 
@@ -18,7 +19,7 @@ public interface ClubService {
 
     public ClubEntry getClubEntry(long clubId) throws Exception;
 
-    public Collection<ClubEntry> getClubs() throws Exception;
+    public Page<ClubEntry> getClubs() throws Exception;
 
     public ClubEntry updateClubEntry(long clubId, String email, String password, String officialName, String popularName,
                                      String federation, Boolean isPublic) throws Exception;

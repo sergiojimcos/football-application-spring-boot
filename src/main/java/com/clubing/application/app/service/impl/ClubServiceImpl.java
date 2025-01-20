@@ -6,6 +6,8 @@ import com.clubing.application.app.service.model.ClubEntry;
 import com.clubing.application.app.service.repository.ClubRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -42,9 +44,9 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public Collection<ClubEntry> getClubs() throws Exception {
+    public Page<ClubEntry> getClubs() throws Exception {
 
-        return clubRepository.findAllByPublic();
+        return clubRepository.findAllByPublic(Pageable.ofSize(10));
     }
 
     @Override

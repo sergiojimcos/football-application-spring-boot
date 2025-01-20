@@ -6,9 +6,11 @@ import com.clubing.application.app.rest.api.dto.ClubDTO;
 import com.clubing.application.app.rest.api.dto.PlayerDTO;
 import com.clubing.application.app.rest.impl.converter.ClubDTOConverter;
 import com.clubing.application.app.rest.impl.converter.PlayerDTOConverter;
+import com.clubing.application.app.rest.impl.infra.PageDTO;
 import com.clubing.application.app.service.model.ClubEntry;
 import com.clubing.application.app.service.model.PlayerEntry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,21 +59,9 @@ public class ClubController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<ClubDTO>> getClubs() throws Exception {
+    public ResponseEntity<PageDTO<ClubDTO>> getClubs() throws Exception {
 
-        Collection<ClubEntry> clubEntryCollection = clubService.getClubs();
-
-        Collection<ClubDTO> clubDTOCollection = clubEntryCollection.stream()
-                .map(clubEntry -> clubDTOConverter.toDTO(
-                        clubEntry.getId(),
-                        clubEntry.getFullName(),
-                        clubEntry.getSortName(),
-                        clubEntry.getFederationName(),
-                        clubEntry.isPublic()
-                ))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(clubDTOCollection);
+        return ResponseEntity.ok(clubDTOConverter.toPageDTO(clubService.getClubs()));
     }
 
     @GetMapping(value = "/{clubId}", produces = MediaType.APPLICATION_JSON_VALUE)
