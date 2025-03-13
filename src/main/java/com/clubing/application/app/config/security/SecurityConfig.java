@@ -1,4 +1,4 @@
-package com.clubing.application.app.auth.impl.security.config;
+package com.clubing.application.app.config.security;
 
 import com.clubing.application.app.auth.impl.security.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
