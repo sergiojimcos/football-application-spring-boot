@@ -36,6 +36,4 @@ public class MatchController {
 
         return ResponseEntity.ok(matchDTOConverter.convert(match));
     }
-
-
 }
