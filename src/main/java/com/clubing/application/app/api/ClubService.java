@@ -3,8 +3,6 @@ package com.clubing.application.app.api;
 import com.clubing.application.app.service.model.ClubEntry;
 import org.springframework.data.domain.Page;
 
-import java.util.Collection;
-
 /**
  * @author Sergio Jiménez del Coso
  */

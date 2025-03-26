@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -48,10 +47,6 @@ public class AuthController {
     public ResponseEntity<TokenDTO> login(@RequestBody @Valid UserDTO userDTO) throws Exception {
 
         UserDetails userDetails;
-
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDTO.getUserName(), userDTO.getPassword())
-        );
 
         try {
             userDetails = userDetailsService.loadUserByUsername(userDTO.getUserName());
