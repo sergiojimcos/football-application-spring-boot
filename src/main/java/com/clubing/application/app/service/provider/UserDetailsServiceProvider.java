@@ -1,4 +1,4 @@
-package com.clubing.application.app.service.impl;
+package com.clubing.application.app.service.provider;
 
 import com.clubing.application.app.api.UserService;
 import com.clubing.application.app.service.model.UserEntry;

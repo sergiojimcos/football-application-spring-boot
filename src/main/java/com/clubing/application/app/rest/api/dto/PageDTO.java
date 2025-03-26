@@ -1,4 +1,4 @@
-package com.clubing.application.app.rest.impl.infra;
+package com.clubing.application.app.rest.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

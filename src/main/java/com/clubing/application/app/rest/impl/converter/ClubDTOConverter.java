@@ -1,14 +1,13 @@
 package com.clubing.application.app.rest.impl.converter;
 
 import com.clubing.application.app.rest.api.dto.ClubDTO;
-import com.clubing.application.app.rest.impl.infra.PageDTO;
+import com.clubing.application.app.rest.api.dto.PageDTO;
 import com.clubing.application.app.service.model.ClubEntry;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
